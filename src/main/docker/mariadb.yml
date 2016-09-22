@@ -1,0 +1,13 @@
+version: '2'
+services:
+    technew-mariadb:
+        container_name: technew-mariadb
+        image: mariadb:10.1.17
+        # volumes:
+        #     - ~/volumes/jhipster/technew/mysql/:/var/lib/mysql/
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+            - MYSQL_DATABASE=technew
+        ports:
+            - 3306:3306
