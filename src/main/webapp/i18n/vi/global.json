@@ -10,17 +10,17 @@
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
-                "main": "Account",
-                "settings": "Settings",
-                "password": "Password",
-                "sessions": "Sessions",
-                "login": "Sign in",
-                "logout": "Sign out",
-                "register": "Register"
+                "main": "Tài khoản",
+                "settings": "Thiết đặt",
+                "password": "Mật khẩu",
+                "sessions": "Phiên làm việc",
+                "login": "Đăng nhập",
+                "logout": "Đăng xuất",
+                "register": "Đăng ký"
             },
             "admin": {
-                "main": "Administration",
-                "userManagement": "User management",
+                "main": "Quản lý",
+                "userManagement": "Quản lý người dùng",
                 "tracker": "User tracker",
                 "metrics": "Metrics",
                 "health": "Health",
@@ -28,13 +28,13 @@
                 "logs": "Logs",
                 "audits": "Audits",
                 "apidocs": "API",
-                "database": "Database",
+                "database": "Cơ sở dữ liệu",
                 "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
             },
-            "language": "Language"
+            "language": "Ngôn ngữ"
         },
         "form": {
-            "username": "username",
+            "username": "Username",
             "username.placeholder": "Your username",
             "newpassword": "New password",
             "newpassword.placeholder": "New password",
