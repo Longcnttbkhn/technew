@@ -1,0 +1,10 @@
+{
+    "technewApp": {
+        "Status" : {
+            "null": "",
+            "PENDING": "PENDING",
+            "APPROVED": "APPROVED",
+            "NO_APPROVE": "NO_APPROVE"
+        }
+    }
+}
