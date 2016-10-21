@@ -16,16 +16,17 @@
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
     <link rel="stylesheet" href="content/css/main.css">
+    <link rel="stylesheet" href="content/css/app.css">
     <!-- endbuild -->
 </head>
 <body ng-app="technewApp" ng-strict-di>
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <page-ribbon></page-ribbon>
-    <div ui-view="navbar" ng-cloak></div>
+    <!-- <page-ribbon></page-ribbon> -->
+    <div ui-view="navbar" ng-cloak ng-class="{'app-header-fixed': true}"></div>
     <div class="container">
-        <div class="well" ui-view="content">
+        <div class="well view-content" ui-view="content">
             <!-- Angular views -->
         </div>
 

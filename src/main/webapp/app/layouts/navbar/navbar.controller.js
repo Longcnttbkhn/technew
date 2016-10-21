@@ -5,9 +5,9 @@
         .module('technewApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
+    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService', 'Category'];
 
-    function NavbarController ($state, Auth, Principal, ProfileService, LoginService) {
+    function NavbarController ($state, Auth, Principal, ProfileService, LoginService, Category) {
         var vm = this;
 
         vm.isNavbarCollapsed = true;
@@ -35,6 +35,13 @@
             $state.go('home');
         }
 
+        function getCategories() {
+            Category.query(function(result) {
+                vm.categories = result;
+                console.log(result);
+            });
+        }
+
         function toggleNavbar() {
             vm.isNavbarCollapsed = !vm.isNavbarCollapsed;
         }
@@ -42,5 +49,7 @@
         function collapseNavbar() {
             vm.isNavbarCollapsed = true;
         }
+
+        getCategories();
     }
 })();
