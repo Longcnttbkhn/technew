@@ -1,13 +1,6 @@
 {
     "fluentMethods": true,
-    "relationships": [
-        {
-            "relationshipName": "post",
-            "otherEntityName": "post",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "category"
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
             "fieldName": "name",

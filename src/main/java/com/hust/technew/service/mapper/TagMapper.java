@@ -16,7 +16,6 @@ public interface TagMapper {
 
     List<TagDTO> tagsToTagDTOs(List<Tag> tags);
 
-    @Mapping(target = "posts", ignore = true)
     Tag tagDTOToTag(TagDTO tagDTO);
 
     List<Tag> tagDTOsToTags(List<TagDTO> tagDTOs);

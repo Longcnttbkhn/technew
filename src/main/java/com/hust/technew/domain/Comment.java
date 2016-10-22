@@ -32,14 +32,6 @@ public class Comment implements Serializable {
     @Column(name = "created_date", nullable = false)
     private ZonedDateTime createdDate;
 
-    @ManyToOne
-    @NotNull
-    private User user;
-
-    @ManyToOne
-    @NotNull
-    private Post post;
-
     public Long getId() {
         return id;
     }
@@ -72,32 +64,6 @@ public class Comment implements Serializable {
 
     public void setCreatedDate(ZonedDateTime createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public Comment user(User user) {
-        this.user = user;
-        return this;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public Comment post(Post post) {
-        this.post = post;
-        return this;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
     }
 
     @Override

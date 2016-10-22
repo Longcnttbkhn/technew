@@ -5,9 +5,9 @@
         .module('technewApp')
         .controller('CommentDialogController', CommentDialogController);
 
-    CommentDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Comment', 'User', 'Post'];
+    CommentDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Comment'];
 
-    function CommentDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Comment, User, Post) {
+    function CommentDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Comment) {
         var vm = this;
 
         vm.comment = entity;
@@ -15,8 +15,6 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.users = User.query();
-        vm.posts = Post.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

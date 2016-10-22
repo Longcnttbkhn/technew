@@ -1,6 +1,5 @@
 package com.hust.technew.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -8,8 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 import com.hust.technew.domain.enumeration.Status;
@@ -60,26 +57,6 @@ public class Post implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status;
-
-    @ManyToOne
-    @NotNull
-    private User author;
-
-    @ManyToOne
-    @NotNull
-    private Category category;
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "post_tag",
-               joinColumns = @JoinColumn(name="posts_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="tags_id", referencedColumnName="ID"))
-    private Set<Tag> tags = new HashSet<>();
-
-    @OneToMany(mappedBy = "post")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Comment> comments = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -178,82 +155,6 @@ public class Post implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public Post author(User user) {
-        this.author = user;
-        return this;
-    }
-
-    public void setAuthor(User user) {
-        this.author = user;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public Post category(Category category) {
-        this.category = category;
-        return this;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Set<Tag> getTags() {
-        return tags;
-    }
-
-    public Post tags(Set<Tag> tags) {
-        this.tags = tags;
-        return this;
-    }
-
-    public Post addTag(Tag tag) {
-        tags.add(tag);
-        tag.getPosts().add(this);
-        return this;
-    }
-
-    public Post removeTag(Tag tag) {
-        tags.remove(tag);
-        tag.getPosts().remove(this);
-        return this;
-    }
-
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public Set<Comment> getComments() {
-        return comments;
-    }
-
-    public Post comments(Set<Comment> comments) {
-        this.comments = comments;
-        return this;
-    }
-
-    public Post addComment(Comment comment) {
-        comments.add(comment);
-        comment.setPost(this);
-        return this;
-    }
-
-    public Post removeComment(Comment comment) {
-        comments.remove(comment);
-        comment.setPost(null);
-        return this;
-    }
-
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
     }
 
     @Override

@@ -1,14 +1,11 @@
 package com.hust.technew.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -33,11 +30,6 @@ public class Category implements Serializable {
     @NotNull
     @Column(name = "num", nullable = false)
     private Integer num;
-
-    @OneToMany(mappedBy = "category")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Post> posts = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -71,31 +63,6 @@ public class Category implements Serializable {
 
     public void setNum(Integer num) {
         this.num = num;
-    }
-
-    public Set<Post> getPosts() {
-        return posts;
-    }
-
-    public Category posts(Set<Post> posts) {
-        this.posts = posts;
-        return this;
-    }
-
-    public Category addPost(Post post) {
-        posts.add(post);
-        post.setCategory(this);
-        return this;
-    }
-
-    public Category removePost(Post post) {
-        posts.remove(post);
-        post.setCategory(null);
-        return this;
-    }
-
-    public void setPosts(Set<Post> posts) {
-        this.posts = posts;
     }
 
     @Override

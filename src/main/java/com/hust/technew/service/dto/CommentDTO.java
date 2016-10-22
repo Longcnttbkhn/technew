@@ -3,8 +3,6 @@ package com.hust.technew.service.dto;
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 
@@ -23,10 +21,6 @@ public class CommentDTO implements Serializable {
     private ZonedDateTime createdDate;
 
 
-    private Long userId;
-    
-    private Long postId;
-    
     public Long getId() {
         return id;
     }
@@ -47,22 +41,6 @@ public class CommentDTO implements Serializable {
 
     public void setCreatedDate(ZonedDateTime createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Long postId) {
-        this.postId = postId;
     }
 
     @Override

@@ -54,30 +54,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label data-translate="technewApp.comment.user" for="field_user">User</label>
-            <select class="form-control" id="field_user" name="user" ng-model="vm.comment.userId" ng-options="user.id as user.id for user in vm.users"             required>
-                <option value=""></option>
-            </select>
-        </div>
-        <div ng-show="editForm.user.$invalid">
-            <p class="help-block"
-                ng-show="editForm.user.$error.required" data-translate="entity.validation.required">
-                This field is required.
-            </p>
-        </div>
-        <div class="form-group">
-            <label data-translate="technewApp.comment.post" for="field_post">Post</label>
-            <select class="form-control" id="field_post" name="post" ng-model="vm.comment.postId" ng-options="post.id as post.id for post in vm.posts"             required>
-                <option value=""></option>
-            </select>
-        </div>
-        <div ng-show="editForm.post.$invalid">
-            <p class="help-block"
-                ng-show="editForm.post.$error.required" data-translate="entity.validation.required">
-                This field is required.
-            </p>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

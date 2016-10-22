@@ -17,9 +17,7 @@
                 "title": "Comment"
             },
             "content": "Content",
-            "createdDate": "Created Date",
-            "user": "User",
-            "post": "Post"
+            "createdDate": "Created Date"
         }
     }
 }

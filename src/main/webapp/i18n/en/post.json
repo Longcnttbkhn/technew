@@ -22,11 +22,7 @@
             "avatar": "Avatar",
             "createdDate": "Created Date",
             "views": "Views",
-            "status": "Status",
-            "author": "Author",
-            "category": "Category",
-            "tag": "Tag",
-            "comment": "Comment"
+            "status": "Status"
         }
     }
 }

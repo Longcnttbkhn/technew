@@ -3,8 +3,6 @@ package com.hust.technew.service.dto;
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 import com.hust.technew.domain.enumeration.Status;
@@ -41,12 +39,6 @@ public class PostDTO implements Serializable {
     @NotNull
     private Status status;
 
-
-    private Long authorId;
-    
-    private Long categoryId;
-    
-    private Set<TagDTO> tags = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -103,30 +95,6 @@ public class PostDTO implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public Long getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(Long userId) {
-        this.authorId = userId;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public Set<TagDTO> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<TagDTO> tags) {
-        this.tags = tags;
     }
 
     @Override

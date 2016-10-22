@@ -16,7 +16,6 @@ public interface CategoryMapper {
 
     List<CategoryDTO> categoriesToCategoryDTOs(List<Category> categories);
 
-    @Mapping(target = "posts", ignore = true)
     Category categoryDTOToCategory(CategoryDTO categoryDTO);
 
     List<Category> categoryDTOsToCategories(List<CategoryDTO> categoryDTOs);

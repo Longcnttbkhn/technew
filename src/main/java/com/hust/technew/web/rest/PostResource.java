@@ -123,7 +123,7 @@ public class PostResource {
     @Timed
     public ResponseEntity<PostDTO> getPost(@PathVariable Long id) {
         log.debug("REST request to get Post : {}", id);
-        Post post = postRepository.findOneWithEagerRelationships(id);
+        Post post = postRepository.findOne(id);
         PostDTO postDTO = postMapper.postToPostDTO(post);
         return Optional.ofNullable(postDTO)
             .map(result -> new ResponseEntity<>(

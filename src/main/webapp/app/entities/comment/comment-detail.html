@@ -12,14 +12,6 @@
         <dd>
             <span>{{vm.comment.createdDate | date:'medium'}}</span>
         </dd>
-        <dt><span data-translate="technewApp.comment.user">User</span></dt>
-        <dd>
-            {{vm.comment.userId}}
-        </dd>
-        <dt><span data-translate="technewApp.comment.post">Post</span></dt>
-        <dd>
-            <a ui-sref="post-detail({id:vm.comment.postId})">{{vm.comment.postId}}</a>
-        </dd>
     </dl>
 
     <button type="submit"

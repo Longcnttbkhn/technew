@@ -5,9 +5,9 @@
         .module('technewApp')
         .controller('CommentDetailController', CommentDetailController);
 
-    CommentDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Comment', 'User', 'Post'];
+    CommentDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Comment'];
 
-    function CommentDetailController($scope, $rootScope, $stateParams, previousState, entity, Comment, User, Post) {
+    function CommentDetailController($scope, $rootScope, $stateParams, previousState, entity, Comment) {
         var vm = this;
 
         vm.comment = entity;

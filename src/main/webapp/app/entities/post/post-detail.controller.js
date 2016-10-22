@@ -5,9 +5,9 @@
         .module('technewApp')
         .controller('PostDetailController', PostDetailController);
 
-    PostDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Post', 'User', 'Category', 'Tag', 'Comment'];
+    PostDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Post'];
 
-    function PostDetailController($scope, $rootScope, $stateParams, previousState, entity, Post, User, Category, Tag, Comment) {
+    function PostDetailController($scope, $rootScope, $stateParams, previousState, entity, Post) {
         var vm = this;
 
         vm.post = entity;

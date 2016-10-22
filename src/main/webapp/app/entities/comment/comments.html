@@ -21,8 +21,6 @@
                     <th><span data-translate="global.field.id">ID</span></th>
                     <th><span data-translate="technewApp.comment.content">Content</span></th>
                     <th><span data-translate="technewApp.comment.createdDate">Created Date</span></th>
-                    <th><span data-translate="technewApp.comment.user">User</span></th>
-                    <th><span data-translate="technewApp.comment.post">Post</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -31,12 +29,6 @@
                     <td><a ui-sref="comment-detail({id:comment.id})">{{comment.id}}</a></td>
                     <td>{{comment.content}}</td>
                     <td>{{comment.createdDate | date:'medium'}}</td>
-                    <td>
-                        {{comment.userId}}
-                    </td>
-                    <td>
-                        <a ui-sref="post-detail({id:comment.postId})">{{comment.postId}}</a>
-                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

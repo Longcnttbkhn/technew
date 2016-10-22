@@ -17,8 +17,7 @@
                 "title": "Category"
             },
             "name": "Name",
-            "num": "Num",
-            "post": "Post"
+            "num": "Num"
         }
     }
 }

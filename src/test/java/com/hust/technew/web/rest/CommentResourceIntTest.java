@@ -1,46 +1,39 @@
 package com.hust.technew.web.rest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.hust.technew.TechnewApp;
 
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import com.hust.technew.domain.Comment;
+import com.hust.technew.repository.CommentRepository;
+import com.hust.technew.service.dto.CommentDTO;
+import com.hust.technew.service.mapper.CommentMapper;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hust.technew.TechnewApp;
-import com.hust.technew.domain.Comment;
-import com.hust.technew.domain.Post;
-import com.hust.technew.domain.User;
-import com.hust.technew.repository.CommentRepository;
-import com.hust.technew.service.dto.CommentDTO;
-import com.hust.technew.service.mapper.CommentMapper;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Test class for the CommentResource REST controller.
@@ -100,16 +93,6 @@ public class CommentResourceIntTest {
         Comment comment = new Comment()
                 .content(DEFAULT_CONTENT)
                 .createdDate(DEFAULT_CREATED_DATE);
-        // Add required entity
-        User user = UserResourceIntTest.createEntity(em);
-        em.persist(user);
-        em.flush();
-        comment.setUser(user);
-        // Add required entity
-        Post post = PostResourceIntTest.createEntity(em);
-        em.persist(post);
-        em.flush();
-        comment.setPost(post);
         return comment;
     }
 

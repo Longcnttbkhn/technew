@@ -26,8 +26,6 @@
                     <th jh-sort-by="createdDate"><span data-translate="technewApp.post.createdDate">Created Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="views"><span data-translate="technewApp.post.views">Views</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="status"><span data-translate="technewApp.post.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="authorId"><span data-translate="technewApp.post.author">Author</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="categoryId"><span data-translate="technewApp.post.category">Category</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -41,12 +39,6 @@
                     <td>{{post.createdDate | date:'medium'}}</td>
                     <td>{{post.views}}</td>
                     <td data-translate="{{'technewApp.Status.' + post.status}}">{{post.status}}</td>
-                    <td>
-                        {{post.authorId}}
-                    </td>
-                    <td>
-                        <a ui-sref="category-detail({id:post.categoryId})">{{post.categoryId}}</a>
-                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

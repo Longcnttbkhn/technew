@@ -5,9 +5,9 @@
         .module('technewApp')
         .controller('CategoryDetailController', CategoryDetailController);
 
-    CategoryDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Category', 'Post'];
+    CategoryDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Category'];
 
-    function CategoryDetailController($scope, $rootScope, $stateParams, previousState, entity, Category, Post) {
+    function CategoryDetailController($scope, $rootScope, $stateParams, previousState, entity, Category) {
         var vm = this;
 
         vm.category = entity;

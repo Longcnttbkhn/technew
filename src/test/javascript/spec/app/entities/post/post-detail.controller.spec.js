@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('Post Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockPost, MockUser, MockCategory, MockTag, MockComment;
+        var MockEntity, MockPreviousState, MockPost;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -13,10 +13,6 @@ describe('Controller Tests', function() {
             MockEntity = jasmine.createSpy('MockEntity');
             MockPreviousState = jasmine.createSpy('MockPreviousState');
             MockPost = jasmine.createSpy('MockPost');
-            MockUser = jasmine.createSpy('MockUser');
-            MockCategory = jasmine.createSpy('MockCategory');
-            MockTag = jasmine.createSpy('MockTag');
-            MockComment = jasmine.createSpy('MockComment');
             
 
             var locals = {
@@ -24,11 +20,7 @@ describe('Controller Tests', function() {
                 '$rootScope': $rootScope,
                 'entity': MockEntity,
                 'previousState': MockPreviousState,
-                'Post': MockPost,
-                'User': MockUser,
-                'Category': MockCategory,
-                'Tag': MockTag,
-                'Comment': MockComment
+                'Post': MockPost
             };
             createController = function() {
                 $injector.get('$controller')("PostDetailController", locals);

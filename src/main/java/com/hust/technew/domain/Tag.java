@@ -1,14 +1,11 @@
 package com.hust.technew.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -34,11 +31,6 @@ public class Tag implements Serializable {
     @Min(value = 0)
     @Column(name = "count", nullable = false)
     private Integer count;
-
-    @ManyToMany(mappedBy = "tags")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Post> posts = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -72,31 +64,6 @@ public class Tag implements Serializable {
 
     public void setCount(Integer count) {
         this.count = count;
-    }
-
-    public Set<Post> getPosts() {
-        return posts;
-    }
-
-    public Tag posts(Set<Post> posts) {
-        this.posts = posts;
-        return this;
-    }
-
-    public Tag addPost(Post post) {
-        posts.add(post);
-        post.getTags().add(this);
-        return this;
-    }
-
-    public Tag removePost(Post post) {
-        posts.remove(post);
-        post.getTags().remove(this);
-        return this;
-    }
-
-    public void setPosts(Set<Post> posts) {
-        this.posts = posts;
     }
 
     @Override

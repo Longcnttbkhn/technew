@@ -3,8 +3,6 @@ package com.hust.technew.web.rest;
 import com.hust.technew.TechnewApp;
 
 import com.hust.technew.domain.Post;
-import com.hust.technew.domain.User;
-import com.hust.technew.domain.Category;
 import com.hust.technew.repository.PostRepository;
 import com.hust.technew.service.dto.PostDTO;
 import com.hust.technew.service.mapper.PostMapper;
@@ -113,16 +111,6 @@ public class PostResourceIntTest {
                 .createdDate(DEFAULT_CREATED_DATE)
                 .views(DEFAULT_VIEWS)
                 .status(DEFAULT_STATUS);
-        // Add required entity
-        User author = UserResourceIntTest.createEntity(em);
-        em.persist(author);
-        em.flush();
-        post.setAuthor(author);
-        // Add required entity
-        Category category = CategoryResourceIntTest.createEntity(em);
-        em.persist(category);
-        em.flush();
-        post.setCategory(category);
         return post;
     }
 
