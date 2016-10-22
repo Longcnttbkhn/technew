@@ -5,9 +5,9 @@
         .module('technewApp')
         .controller('PostDialogController', PostDialogController);
 
-    PostDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Post', 'User', 'Category', 'Tag'];
+    PostDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Post', 'User', 'Category', 'Tag', 'Comment'];
 
-    function PostDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Post, User, Category, Tag) {
+    function PostDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Post, User, Category, Tag, Comment) {
         var vm = this;
 
         vm.post = entity;
@@ -18,6 +18,7 @@
         vm.users = User.query();
         vm.categories = Category.query();
         vm.tags = Tag.query();
+        vm.comments = Comment.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

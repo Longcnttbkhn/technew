@@ -61,5 +61,13 @@
            timeToLiveSeconds="3600">
     </cache>
 
+    <cache name="com.hust.technew.domain.Category.posts"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.hust.technew.domain.Post.comments"
+           timeToLiveSeconds="3600">
+    </cache>
+
     <!-- jhipster-needle-ehcache-add-entry -->
 </ehcache>

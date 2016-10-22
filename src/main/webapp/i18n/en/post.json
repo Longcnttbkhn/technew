@@ -25,7 +25,8 @@
             "status": "Status",
             "author": "Author",
             "category": "Category",
-            "tag": "Tag"
+            "tag": "Tag",
+            "comment": "Comment"
         }
     }
 }

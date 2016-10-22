@@ -1,14 +1,10 @@
 package com.hust.technew.service.mapper;
 
-import java.util.List;
-
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
-import com.hust.technew.domain.Category;
-import com.hust.technew.domain.Post;
-import com.hust.technew.domain.Tag;
+import com.hust.technew.domain.*;
 import com.hust.technew.service.dto.PostDTO;
+
+import org.mapstruct.*;
+import java.util.List;
 
 /**
  * Mapper for the entity Post and its DTO PostDTO.
@@ -24,6 +20,7 @@ public interface PostMapper {
 
     @Mapping(source = "authorId", target = "author")
     @Mapping(source = "categoryId", target = "category")
+    @Mapping(target = "comments", ignore = true)
     Post postDTOToPost(PostDTO postDTO);
 
     List<Post> postDTOsToPosts(List<PostDTO> postDTOs);

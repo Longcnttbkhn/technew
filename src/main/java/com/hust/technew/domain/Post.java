@@ -1,5 +1,6 @@
 package com.hust.technew.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -74,6 +75,11 @@ public class Post implements Serializable {
                joinColumns = @JoinColumn(name="posts_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="tags_id", referencedColumnName="ID"))
     private Set<Tag> tags = new HashSet<>();
+
+    @OneToMany(mappedBy = "post")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Comment> comments = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -223,6 +229,31 @@ public class Post implements Serializable {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public Post comments(Set<Comment> comments) {
+        this.comments = comments;
+        return this;
+    }
+
+    public Post addComment(Comment comment) {
+        comments.add(comment);
+        comment.setPost(this);
+        return this;
+    }
+
+    public Post removeComment(Comment comment) {
+        comments.remove(comment);
+        comment.setPost(null);
+        return this;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override
