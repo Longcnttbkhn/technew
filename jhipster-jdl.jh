@@ -1,0 +1,64 @@
+entity Author {
+	name String required maxlength(45),
+    birthDay LocalDate,
+    address String maxlength(45),
+    phone String maxlength(14),
+    avatar String maxlength(45),
+    status Status required,
+    aboutMe String maxlength(200)
+}
+
+entity Post {
+	title String required maxlength(150),
+    content String required maxlength(10000),
+    decription String required maxlength(150),
+    avatar String required maxlength(100),
+    status Status required,
+    createdDate ZonedDateTime required,
+    view Integer required
+}
+
+entity Category {
+	name String required maxlength(45)
+}
+
+entity Tag {
+	name String required
+}
+
+entity Comment {
+	content String required
+}
+
+enum Status {
+    PENDING, APPROVED, NO_APPROVE, LOCKED
+}
+
+relationship OneToMany {
+	Author{post} to Post{author}
+}
+
+relationship OneToMany {
+	Category{post} to Post{category}
+}
+
+relationship ManyToMany {
+	Post{tag} to Tag{post}
+}
+
+relationship OneToOne {
+	Author{user} to User
+}
+
+relationship OneToMany {
+	Post{comment} to Comment{post}
+}
+
+relationship ManyToOne {
+	Comment{user} to User
+}
+
+paginate Post, Author with infinite-scroll
+
+dto * with mapstruct
+

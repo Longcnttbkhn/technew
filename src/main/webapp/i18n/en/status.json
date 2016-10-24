@@ -4,7 +4,8 @@
             "null": "",
             "PENDING": "PENDING",
             "APPROVED": "APPROVED",
-            "NO_APPROVE": "NO_APPROVE"
+            "NO_APPROVE": "NO_APPROVE",
+            "LOCKED": "LOCKED"
         }
     }
 }

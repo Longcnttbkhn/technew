@@ -1,0 +1,51 @@
+
+<div>
+    <h2><span data-translate="technewApp.author.detail.title">Author</span> {{vm.author.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="technewApp.author.name">Name</span></dt>
+        <dd>
+            <span>{{vm.author.name}}</span>
+        </dd>
+        <dt><span data-translate="technewApp.author.birthDay">Birth Day</span></dt>
+        <dd>
+            <span>{{vm.author.birthDay | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span data-translate="technewApp.author.address">Address</span></dt>
+        <dd>
+            <span>{{vm.author.address}}</span>
+        </dd>
+        <dt><span data-translate="technewApp.author.phone">Phone</span></dt>
+        <dd>
+            <span>{{vm.author.phone}}</span>
+        </dd>
+        <dt><span data-translate="technewApp.author.avatar">Avatar</span></dt>
+        <dd>
+            <span>{{vm.author.avatar}}</span>
+        </dd>
+        <dt><span data-translate="technewApp.author.status">Status</span></dt>
+        <dd>
+            <span data-translate="{{'technewApp.Status.' + vm.author.status}}">{{vm.author.status}}</span>
+        </dd>
+        <dt><span data-translate="technewApp.author.aboutMe">About Me</span></dt>
+        <dd>
+            <span>{{vm.author.aboutMe}}</span>
+        </dd>
+        <dt><span data-translate="technewApp.author.user">User</span></dt>
+        <dd>
+            {{vm.author.userId}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="author-detail.edit({id:vm.author.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
