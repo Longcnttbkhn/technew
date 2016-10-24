@@ -37,6 +37,10 @@
            timeToLiveSeconds="3600">
     </cache>
 
+    <cache name="com.hust.technew.social.SocialUserConnection"
+           timeToLiveSeconds="3600">
+    </cache>
+
     <cache name="com.hust.technew.domain.Author"
            timeToLiveSeconds="3600">
     </cache>

@@ -31,6 +31,9 @@ public class UserService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Inject
+    private SocialService socialService;
+
+    @Inject
     private PasswordEncoder passwordEncoder;
 
     @Inject
@@ -170,6 +173,7 @@ public class UserService {
 
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(u -> {
+            socialService.deleteUserSocialConnection(u.getLogin());
             userRepository.delete(u);
             log.debug("Deleted User: {}", u);
         });
