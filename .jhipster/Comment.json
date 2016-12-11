@@ -23,7 +23,7 @@
             ]
         }
     ],
-    "changelogDate": "20161024075939",
+    "changelogDate": "20161211142003",
     "entityTableName": "comment",
     "dto": "mapstruct",
     "pagination": "no",

@@ -8,14 +8,6 @@
             "otherEntityRelationshipName": "post"
         },
         {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "post",
-            "relationshipName": "tag",
-            "otherEntityName": "tag",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
             "relationshipType": "many-to-one",
             "relationshipName": "author",
             "otherEntityName": "author",
@@ -33,10 +25,8 @@
             "fieldName": "title",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 150
+                "required"
+            ]
         },
         {
             "fieldName": "content",
@@ -51,44 +41,28 @@
             "fieldName": "decription",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 150
+                "required"
+            ]
         },
         {
             "fieldName": "avatar",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 100
+            "fieldType": "String"
         },
         {
             "fieldName": "status",
             "fieldType": "Status",
-            "fieldValues": "PENDING,APPROVED,NO_APPROVE,LOCKED",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldValues": "PENDING,APPROVED,NO_APPROVE,LOCKED"
         },
         {
             "fieldName": "createdDate",
-            "fieldType": "ZonedDateTime",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "ZonedDateTime"
         },
         {
             "fieldName": "view",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "Integer"
         }
     ],
-    "changelogDate": "20161024075936",
+    "changelogDate": "20161211142001",
     "entityTableName": "post",
     "dto": "mapstruct",
     "pagination": "infinite-scroll",

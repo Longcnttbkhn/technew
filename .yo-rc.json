@@ -16,7 +16,7 @@
     "buildTool": "maven",
     "enableSocialSignIn": true,
     "rememberMeKey": "b1032a7995e2df0eaaef5eb305c1b6e2f351ae50",
-    "useSass": true,
+    "useSass": false,
     "applicationType": "monolith",
     "testFrameworks": [
       "gatling"

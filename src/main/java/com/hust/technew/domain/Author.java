@@ -29,23 +29,19 @@ public class Author implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 45)
-    @Column(name = "name", length = 45, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "birth_day")
     private LocalDate birthDay;
 
-    @Size(max = 45)
-    @Column(name = "address", length = 45)
+    @Column(name = "address")
     private String address;
 
-    @Size(max = 14)
-    @Column(name = "phone", length = 14)
+    @Column(name = "phone")
     private String phone;
 
-    @Size(max = 45)
-    @Column(name = "avatar", length = 45)
+    @Column(name = "avatar")
     private String avatar;
 
     @NotNull
@@ -53,8 +49,8 @@ public class Author implements Serializable {
     @Column(name = "status", nullable = false)
     private Status status;
 
-    @Size(max = 200)
-    @Column(name = "about_me", length = 200)
+    @Size(max = 10000)
+    @Column(name = "about_me", length = 10000)
     private String aboutMe;
 
     @OneToOne

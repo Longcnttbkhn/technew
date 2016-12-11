@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Mapper for the entity Post and its DTO PostDTO.
  */
-@Mapper(componentModel = "spring", uses = {TagMapper.class, })
+@Mapper(componentModel = "spring", uses = {})
 public interface PostMapper {
 
     @Mapping(source = "author.id", target = "authorId")
@@ -24,15 +24,6 @@ public interface PostMapper {
     Post postDTOToPost(PostDTO postDTO);
 
     List<Post> postDTOsToPosts(List<PostDTO> postDTOs);
-
-    default Tag tagFromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        Tag tag = new Tag();
-        tag.setId(id);
-        return tag;
-    }
 
     default Author authorFromId(Long id) {
         if (id == null) {

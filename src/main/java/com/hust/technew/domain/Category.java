@@ -26,8 +26,7 @@ public class Category implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 45)
-    @Column(name = "name", length = 45, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "category")

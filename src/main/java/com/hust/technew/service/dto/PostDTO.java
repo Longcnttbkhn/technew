@@ -17,7 +17,6 @@ public class PostDTO implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 150)
     private String title;
 
     @NotNull
@@ -25,24 +24,16 @@ public class PostDTO implements Serializable {
     private String content;
 
     @NotNull
-    @Size(max = 150)
     private String decription;
 
-    @NotNull
-    @Size(max = 100)
     private String avatar;
 
-    @NotNull
     private Status status;
 
-    @NotNull
     private ZonedDateTime createdDate;
 
-    @NotNull
     private Integer view;
 
-
-    private Set<TagDTO> tags = new HashSet<>();
 
     private Long authorId;
     
@@ -103,14 +94,6 @@ public class PostDTO implements Serializable {
 
     public void setView(Integer view) {
         this.view = view;
-    }
-
-    public Set<TagDTO> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<TagDTO> tags) {
-        this.tags = tags;
     }
 
     public Long getAuthorId() {

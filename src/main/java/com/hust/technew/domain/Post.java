@@ -29,8 +29,7 @@ public class Post implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 150)
-    @Column(name = "title", length = 150, nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @NotNull
@@ -39,39 +38,26 @@ public class Post implements Serializable {
     private String content;
 
     @NotNull
-    @Size(max = 150)
-    @Column(name = "decription", length = 150, nullable = false)
+    @Column(name = "decription", nullable = false)
     private String decription;
 
-    @NotNull
-    @Size(max = 100)
-    @Column(name = "avatar", length = 100, nullable = false)
+    @Column(name = "avatar")
     private String avatar;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private Status status;
 
-    @NotNull
-    @Column(name = "created_date", nullable = false)
+    @Column(name = "created_date")
     private ZonedDateTime createdDate;
 
-    @NotNull
-    @Column(name = "view", nullable = false)
+    @Column(name = "view")
     private Integer view;
 
     @OneToMany(mappedBy = "post")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Comment> comments = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "post_tag",
-               joinColumns = @JoinColumn(name="posts_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="tags_id", referencedColumnName="ID"))
-    private Set<Tag> tags = new HashSet<>();
 
     @ManyToOne
     private Author author;
@@ -201,31 +187,6 @@ public class Post implements Serializable {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
-    }
-
-    public Set<Tag> getTags() {
-        return tags;
-    }
-
-    public Post tags(Set<Tag> tags) {
-        this.tags = tags;
-        return this;
-    }
-
-    public Post addTag(Tag tag) {
-        tags.add(tag);
-        tag.getPosts().add(this);
-        return this;
-    }
-
-    public Post removeTag(Tag tag) {
-        tags.remove(tag);
-        tag.getPosts().remove(this);
-        return this;
-    }
-
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
     }
 
     public Author getAuthor() {

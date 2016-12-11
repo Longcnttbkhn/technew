@@ -13,13 +13,11 @@
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 45
+                "required"
+            ]
         }
     ],
-    "changelogDate": "20161024075937",
+    "changelogDate": "20161211142002",
     "entityTableName": "category",
     "dto": "mapstruct",
     "pagination": "no",

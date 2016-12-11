@@ -36,6 +36,7 @@
     <cache name="com.hust.technew.domain.User.persistentTokens"
            timeToLiveSeconds="3600">
     </cache>
+    
 
     <cache name="com.hust.technew.social.SocialUserConnection"
            timeToLiveSeconds="3600">
@@ -57,23 +58,11 @@
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="com.hust.technew.domain.Post.tags"
-           timeToLiveSeconds="3600">
-    </cache>
-
     <cache name="com.hust.technew.domain.Category"
            timeToLiveSeconds="3600">
     </cache>
 
     <cache name="com.hust.technew.domain.Category.posts"
-           timeToLiveSeconds="3600">
-    </cache>
-
-    <cache name="com.hust.technew.domain.Tag"
-           timeToLiveSeconds="3600">
-    </cache>
-
-    <cache name="com.hust.technew.domain.Tag.posts"
            timeToLiveSeconds="3600">
     </cache>
 

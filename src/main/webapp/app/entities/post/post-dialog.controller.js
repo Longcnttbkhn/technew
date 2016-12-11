@@ -16,7 +16,6 @@
         vm.openCalendar = openCalendar;
         vm.save = save;
         vm.comments = Comment.query();
-        vm.tags = Tag.query();
         vm.authors = Author.query();
         vm.categories = Category.query();
 

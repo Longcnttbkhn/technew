@@ -17,24 +17,20 @@ public class AuthorDTO implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 45)
     private String name;
 
     private LocalDate birthDay;
 
-    @Size(max = 45)
     private String address;
 
-    @Size(max = 14)
     private String phone;
 
-    @Size(max = 45)
     private String avatar;
 
     @NotNull
     private Status status;
 
-    @Size(max = 200)
+    @Size(max = 10000)
     private String aboutMe;
 
 
