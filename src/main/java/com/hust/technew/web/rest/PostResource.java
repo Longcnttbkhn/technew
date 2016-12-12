@@ -147,5 +147,25 @@ public class PostResource {
         postRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("post", id.toString())).build();
     }
+    
+    /**
+     * GET  /posts/author/:id : get all the posts create by author.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of posts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @RequestMapping(value = "/posts/author/{id}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<PostDTO>> getAllPostByAuthors(Pageable pageable, @PathVariable Long id)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Posts");
+        Page<Post> page = postRepository.findAllByAuthorId(pageable, id);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/posts/author");
+        return new ResponseEntity<>(postMapper.postsToPostDTOs(page.getContent()), headers, HttpStatus.OK);
+    }
+    
 
 }

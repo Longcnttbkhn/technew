@@ -5,9 +5,9 @@
         .module('technewApp')
         .controller('AuthorDialogController', AuthorDialogController);
 
-    AuthorDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Author', 'User', 'Post'];
+    AuthorDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Author', 'User'];
 
-    function AuthorDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Author, User, Post) {
+    function AuthorDialogController($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Author, User) {
         var vm = this;
 
         vm.author = entity;
@@ -16,17 +16,16 @@
         vm.openCalendar = openCalendar;
         vm.save = save;
         vm.users = User.query();
-        vm.posts = Post.query();
 
-        $timeout(function (){
+        $timeout(function() {
             angular.element('.form-group:eq(1)>input').focus();
         });
 
-        function clear () {
+        function clear() {
             $uibModalInstance.dismiss('cancel');
         }
 
-        function save () {
+        function save() {
             vm.isSaving = true;
             if (vm.author.id !== null) {
                 Author.update(vm.author, onSaveSuccess, onSaveError);
@@ -35,19 +34,19 @@
             }
         }
 
-        function onSaveSuccess (result) {
+        function onSaveSuccess(result) {
             $scope.$emit('technewApp:authorUpdate', result);
             $uibModalInstance.close(result);
             vm.isSaving = false;
         }
 
-        function onSaveError () {
+        function onSaveError() {
             vm.isSaving = false;
         }
 
         vm.datePickerOpenStatus.birthDay = false;
 
-        function openCalendar (date) {
+        function openCalendar(date) {
             vm.datePickerOpenStatus[date] = true;
         }
     }

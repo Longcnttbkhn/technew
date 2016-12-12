@@ -51,7 +51,8 @@
     },
     "bootstrap": {
       "main": [
-        "dist/css/bootstrap.css"
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
       ]
     }
   },

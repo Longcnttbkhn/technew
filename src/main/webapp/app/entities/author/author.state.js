@@ -77,7 +77,7 @@
                     controller: 'AuthorDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
-                    size: 'lg',
+                    size: 'md',
                     resolve: {
                         entity: ['Author', function(Author) {
                             return Author.get({id : $stateParams.id}).$promise;
@@ -102,7 +102,7 @@
                     controller: 'AuthorDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
-                    size: 'lg',
+                    size: 'md',
                     resolve: {
                         entity: function () {
                             return {

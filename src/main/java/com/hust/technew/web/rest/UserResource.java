@@ -1,15 +1,14 @@
 package com.hust.technew.web.rest;
 
-import com.hust.technew.config.Constants;
-import com.codahale.metrics.annotation.Timed;
-import com.hust.technew.domain.User;
-import com.hust.technew.repository.UserRepository;
-import com.hust.technew.security.AuthoritiesConstants;
-import com.hust.technew.service.MailService;
-import com.hust.technew.service.UserService;
-import com.hust.technew.web.rest.vm.ManagedUserVM;
-import com.hust.technew.web.rest.util.HeaderUtil;
-import com.hust.technew.web.rest.util.PaginationUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -19,14 +18,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import java.net.URI;
-import java.net.URISyntaxException;
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.codahale.metrics.annotation.Timed;
+import com.hust.technew.config.Constants;
+import com.hust.technew.domain.User;
+import com.hust.technew.repository.UserRepository;
+import com.hust.technew.security.AuthoritiesConstants;
+import com.hust.technew.service.MailService;
+import com.hust.technew.service.UserService;
+import com.hust.technew.service.dto.UserLessDTO;
+import com.hust.technew.service.mapper.UserMapper;
+import com.hust.technew.web.rest.util.HeaderUtil;
+import com.hust.technew.web.rest.util.PaginationUtil;
+import com.hust.technew.web.rest.vm.ManagedUserVM;
 
 /**
  * REST controller for managing users.
@@ -66,6 +75,9 @@ public class UserResource {
 
     @Inject
     private UserService userService;
+    
+    @Inject
+    private UserMapper userMapper;
 
     /**
      * POST  /users  : Creates a new user.
@@ -199,4 +211,26 @@ public class UserResource {
         userService.deleteUser(login);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert( "userManagement.deleted", login)).build();
     }
+    
+    /**
+     * GET  /users/search/:login : search users.
+     * 
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and with body all users
+     * @throws URISyntaxException if the pagination headers couldn't be generated
+     */
+    @RequestMapping(value = "/users/search/{login}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<UserLessDTO>> searchUsers(Pageable pageable, @PathVariable String login)
+        throws URISyntaxException {
+        Page<User> page = userRepository.findAllByLoginContaining(pageable, login);
+        List<UserLessDTO> userLessDTOs = page.getContent().stream()
+                .map(UserLessDTO::new)
+                .collect(Collectors.toList());
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users/search");
+        return new ResponseEntity<>(userLessDTOs, headers, HttpStatus.OK);
+    }
+    
 }

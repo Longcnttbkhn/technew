@@ -24,6 +24,41 @@
                 }
             },
             resolve: {
+                method: [function() {
+                    return 'query';
+                }],
+                query: [function() {
+                    return {};
+                }],
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('post');
+                    $translatePartialLoader.addPart('status');
+                    $translatePartialLoader.addPart('global');
+                    return $translate.refresh();
+                }]
+            }
+        })
+        .state('my-post', {
+            parent: 'entity',
+            url: '/my-post',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'technewApp.post.home.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/post/posts.html',
+                    controller: 'PostController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                method: [function() {
+                    return 'author';
+                }],
+                query: ['Author', function(Author) {
+                    return Author.current().$promise;
+                }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('post');
                     $translatePartialLoader.addPart('status');

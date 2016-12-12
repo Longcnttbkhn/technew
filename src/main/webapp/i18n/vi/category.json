@@ -1,0 +1,23 @@
+{
+    "technewApp": {
+        "category" : {
+            "home": {
+                "title": "Chủ đề",
+                "createLabel": "Tạo chủ đề mới",
+                "createOrEditLabel": "Tạo hoặc chỉnh sửa chủ đề",
+                "search": "Tìm kiếm chủ đề"
+            },
+            "created": "Chủ đề đã được tạo với id {{ param }}",
+            "updated": "Chủ đề có id {{ param }} đã được update",
+            "deleted": "Chủ đề có id {{ param }} bị xóa",
+            "delete": {
+                "question": "Bạn có muốn xóa Chủ đề có id {{ id }} không?"
+            },
+            "detail": {
+                "title": "Chủ đề"
+            },
+            "name": "Tên",
+            "post": "Bài đăng"
+        }
+    }
+}

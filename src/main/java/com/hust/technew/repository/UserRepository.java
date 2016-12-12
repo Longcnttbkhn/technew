@@ -3,6 +3,8 @@ package com.hust.technew.repository;
 import com.hust.technew.domain.User;
 
 import java.time.ZonedDateTime;
+
+import org.mapstruct.Mapping;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,6 +33,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select distinct user from User user left join fetch user.authorities",
         countQuery = "select count(user) from User user")
     Page<User> findAllWithAuthorities(Pageable pageable);
+    
+    Page<User> findAllByLoginContaining(Pageable pageable, String login);
 
     @Override
     void delete(User t);

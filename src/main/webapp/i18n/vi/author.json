@@ -1,0 +1,30 @@
+{
+    "technewApp": {
+        "author" : {
+            "home": {
+                "title": "Tác giả",
+                "createLabel": "Tạo tác giả mới",
+                "createOrEditLabel": "Tạo hoặc chỉnh sửa tác giả",
+                "search": "Tìm kiếm tác giả"
+            },
+            "created": "Tác giả đã được tạo với id {{ param }}",
+            "updated": "Tác giả có id {{ param }} đã được update",
+            "deleted": "Tác giả có id {{ param }} bị xóa",
+            "delete": {
+                "question": "Bạn có muốn xóa Tác giả có id {{ id }} không?"
+            },
+            "detail": {
+                "title": "Tác giả"
+            },
+            "name": "Tên",
+            "birthDay": "Ngày sinh",
+            "address": "Địa chỉ",
+            "phone": "Số điện thoại",
+            "avatar": "Ảnh đại diện",
+            "status": "Trạng thái",
+            "aboutMe": "Giới thiệu bản thân",
+            "user": "Người dùng",
+            "post": "Bài đăng"
+        }
+    }
+}

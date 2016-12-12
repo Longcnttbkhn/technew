@@ -34,6 +34,17 @@
                     data.birthDay = DateUtils.convertLocalDateToServer(data.birthDay);
                     return angular.toJson(data);
                 }
+            },
+            'current': {
+                method: 'GET',
+                url: 'api/authors/current',
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                        data.birthDay = DateUtils.convertLocalDateFromServer(data.birthDay);
+                    }
+                    return data;
+                }
             }
         });
     }

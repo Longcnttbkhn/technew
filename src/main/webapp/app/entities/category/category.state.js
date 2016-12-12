@@ -75,7 +75,7 @@
                     controller: 'CategoryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
-                    size: 'lg',
+                    size: 'sm',
                     resolve: {
                         entity: ['Category', function(Category) {
                             return Category.get({id : $stateParams.id}).$promise;
@@ -100,7 +100,7 @@
                     controller: 'CategoryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
-                    size: 'lg',
+                    size: 'md',
                     resolve: {
                         entity: function () {
                             return {
@@ -128,7 +128,7 @@
                     controller: 'CategoryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
-                    size: 'lg',
+                    size: 'md',
                     resolve: {
                         entity: ['Category', function(Category) {
                             return Category.get({id : $stateParams.id}).$promise;

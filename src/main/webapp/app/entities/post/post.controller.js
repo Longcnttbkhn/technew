@@ -5,11 +5,12 @@
         .module('technewApp')
         .controller('PostController', PostController);
 
-    PostController.$inject = ['$scope', '$state', 'Post', 'ParseLinks', 'AlertService'];
+    PostController.$inject = ['$scope', '$state', 'Post', 'ParseLinks', 'AlertService', 'method', 'query'];
 
-    function PostController ($scope, $state, Post, ParseLinks, AlertService) {
+    function PostController($scope, $state, Post, ParseLinks, AlertService, method, query) {
         var vm = this;
-        
+        console.log(method);
+
         vm.posts = [];
         vm.loadPage = loadPage;
         vm.page = 0;
@@ -22,12 +23,14 @@
 
         loadAll();
 
-        function loadAll () {
-            Post.query({
-                page: vm.page,
-                size: 20,
-                sort: sort()
-            }, onSuccess, onError);
+        console.log(query);
+
+        function loadAll() {
+            query.page = vm.page;
+            query.size = 20;
+            query.sort = sort();
+            Post[method](query, onSuccess, onError);
+
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
                 if (vm.predicate !== 'id') {
@@ -49,7 +52,7 @@
             }
         }
 
-        function reset () {
+        function reset() {
             vm.page = 0;
             vm.posts = [];
             loadAll();

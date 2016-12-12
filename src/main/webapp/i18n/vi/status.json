@@ -1,0 +1,11 @@
+{
+    "technewApp": {
+        "Status" : {
+            "null": "",
+            "PENDING": "CHỜ_PHÊ_DUYỆT",
+            "APPROVED": "ĐÃ_PHÊ_DUYỆT",
+            "NO_APPROVE": "KHÔNG_PHÊ_DUYỆT",
+            "LOCKED": "KHÓA"
+        }
+    }
+}

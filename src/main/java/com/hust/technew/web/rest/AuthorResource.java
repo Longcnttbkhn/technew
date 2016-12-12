@@ -1,13 +1,13 @@
 package com.hust.technew.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.hust.technew.domain.Author;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import com.hust.technew.repository.AuthorRepository;
-import com.hust.technew.web.rest.util.HeaderUtil;
-import com.hust.technew.web.rest.util.PaginationUtil;
-import com.hust.technew.service.dto.AuthorDTO;
-import com.hust.technew.service.mapper.AuthorMapper;
+import javax.inject.Inject;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -16,16 +16,22 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.codahale.metrics.annotation.Timed;
+import com.hust.technew.domain.Author;
+import com.hust.technew.repository.AuthorRepository;
+import com.hust.technew.security.AuthoritiesConstants;
+import com.hust.technew.service.AuthorService;
+import com.hust.technew.service.dto.AuthorDTO;
+import com.hust.technew.service.mapper.AuthorMapper;
+import com.hust.technew.web.rest.util.HeaderUtil;
+import com.hust.technew.web.rest.util.PaginationUtil;
 
 /**
  * REST controller for managing Author.
@@ -41,6 +47,9 @@ public class AuthorResource {
 
     @Inject
     private AuthorMapper authorMapper;
+    
+    @Inject
+    private AuthorService authorService;
 
     /**
      * POST  /authors : Create a new author.
@@ -131,7 +140,28 @@ public class AuthorResource {
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+    
+    /**
+     * GET  /authors/current : get current author.
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the memberDTO, or with status 404 (Not Found)
+     */
+    @RequestMapping(value = "/authors/current",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Secured(AuthoritiesConstants.AUTHOR)
+    public ResponseEntity<AuthorDTO> getCurrentAuthor() {
+        log.debug("REST request to get current Author : {}");
+        Author author = authorService.getCurrentAuthor();
+        AuthorDTO authorDTO = authorMapper.authorToAuthorDTO(author);
+        return Optional.ofNullable(authorDTO)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+    
     /**
      * DELETE  /authors/:id : delete the "id" author.
      *

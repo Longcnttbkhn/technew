@@ -7,6 +7,10 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "author": "Tác giả",
+                "post": "Post",
+                "category": "Category",
+                "comment": "Comment",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -21,6 +25,9 @@
             "admin": {
                 "main": "Quản lý",
                 "userManagement": "Quản lý người dùng",
+                "authorManagement": "Quản lý tác giả",
+                "categoryManagement": "Quản lý chủ đề",
+                "postManagement": "Quản lý bài viết",
                 "tracker": "User tracker",
                 "metrics": "Metrics",
                 "health": "Health",
@@ -30,6 +37,10 @@
                 "apidocs": "API",
                 "database": "Cơ sở dữ liệu",
                 "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
+            },
+            "author": {
+                "myPost": "Bài đã viết",
+                "myProfile": "Thông tin cá nhân"
             },
             "language": "Ngôn ngữ"
         },

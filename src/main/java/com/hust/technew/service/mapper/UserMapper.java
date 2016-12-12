@@ -1,13 +1,15 @@
 package com.hust.technew.service.mapper;
 
-import com.hust.technew.domain.Authority;
-import com.hust.technew.domain.User;
-import com.hust.technew.service.dto.UserDTO;
-import org.mapstruct.*;
-
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+import com.hust.technew.domain.Authority;
+import com.hust.technew.domain.User;
+import com.hust.technew.service.dto.UserDTO;
 
 /**
  * Mapper for the entity User and its DTO UserDTO.

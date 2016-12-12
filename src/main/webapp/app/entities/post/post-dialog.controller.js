@@ -5,9 +5,9 @@
         .module('technewApp')
         .controller('PostDialogController', PostDialogController);
 
-    PostDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Post', 'Comment', 'Tag', 'Author', 'Category'];
+    PostDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Post', 'Comment', 'Author', 'Category'];
 
-    function PostDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Post, Comment, Tag, Author, Category) {
+    function PostDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Post, Comment, Author, Category) {
         var vm = this;
 
         vm.post = entity;

@@ -25,6 +25,9 @@
             "admin": {
                 "main": "Administration",
                 "userManagement": "User management",
+                "authorManagement": "Author management",
+                "categoryManagement": "Category management",
+                "postManagement": "Post management",
                 "tracker": "User tracker",
                 "metrics": "Metrics",
                 "health": "Health",
@@ -34,6 +37,10 @@
                 "apidocs": "API",
                 "database": "Database",
                 "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
+            },
+            "author": {
+                "myPost": "My post",
+                "myProfile": "Profile"
             },
             "language": "Language"
         },
