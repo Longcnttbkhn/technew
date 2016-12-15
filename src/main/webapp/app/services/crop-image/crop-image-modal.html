@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
+    <h4 class="modal-title">Crop image Modal {{cropedImage}}</h4>
+</div>
+<div class="modal-body">
+    <div class="col">
+        <div class="wrapper-sm b-a bg-white m-r-xs m-b-xs">
+            <div class="bg-light" style="height:320px">
+                <img-crop image="vm.imageInput" result-image="vm.imageOutput" result-image-size="320" area-type="square"></img-crop>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="vm.clear()">
+        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+    </button>
+    <button class="btn btn-primary" ng-click="vm.save()">
+        <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+    </button>
+</div>

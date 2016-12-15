@@ -11,7 +11,9 @@
     <!-- build:css content/css/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/ng-img-crop/compile/minified/ng-img-crop.css">
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
     <!-- endinject -->
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
@@ -51,6 +53,7 @@
     <script src="bower_components/messageformat/messageformat.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
+    <script src="bower_components/ng-img-crop/compile/minified/ng-img-crop.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -69,6 +72,7 @@
     <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -76,8 +80,11 @@
     <!-- inject:js -->
     <script src="app/app.module.js"></script>
     <script src="app/services/user/user.service.js"></script>
+    <script src="app/services/upload-image/upload-image.service.js"></script>
     <script src="app/services/profiles/profile.service.js"></script>
     <script src="app/services/profiles/page-ribbon.directive.js"></script>
+    <script src="app/services/crop-image/crop-image-modal.controller.js"></script>
+    <script src="app/services/crop-image/crop-image.directive.js"></script>
     <script src="app/services/auth/sessions.service.js"></script>
     <script src="app/services/auth/register.service.js"></script>
     <script src="app/services/auth/principal.service.js"></script>
@@ -115,6 +122,7 @@
     <script src="app/entities/category/category.state.js"></script>
     <script src="app/entities/category/category.service.js"></script>
     <script src="app/entities/category/category.controller.js"></script>
+    <script src="app/entities/author/profile/profile.controller.js"></script>
     <script src="app/entities/author/author-dialog.controller.js"></script>
     <script src="app/entities/author/author-detail.controller.js"></script>
     <script src="app/entities/author/author-delete-dialog.controller.js"></script>

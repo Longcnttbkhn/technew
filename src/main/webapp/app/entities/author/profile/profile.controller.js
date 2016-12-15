@@ -3,11 +3,11 @@
 
     angular
         .module('technewApp')
-        .controller('ProfileController', ProfileController);
+        .controller('AuthorDetailController', AuthorDetailController);
 
-    ProfileController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Author', 'User', 'Post'];
+    AuthorDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Author', 'User', 'Post'];
 
-    function ProfileController($scope, $rootScope, $stateParams, previousState, entity, Author, User, Post) {
+    function AuthorDetailController($scope, $rootScope, $stateParams, previousState, entity, Author, User, Post) {
         var vm = this;
 
         vm.author = entity;

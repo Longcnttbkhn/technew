@@ -65,6 +65,39 @@
                 }]
             }
         })
+        .state('profile', {
+            parent: 'entity',
+            url: '/profile',
+            data: {
+                authorities: ['ROLE_AUTHOR'],
+                pageTitle: 'technewApp.author.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/author/profile/profile.html',
+                    controller: 'ProfileController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('author');
+                    $translatePartialLoader.addPart('status');
+                    return $translate.refresh();
+                }],
+                entity: ['$stateParams', 'Author', function($stateParams, Author) {
+                    return Author.current().$promise;
+                }],
+                previousState: ["$state", function ($state) {
+                    var currentStateData = {
+                        name: $state.current.name || 'author',
+                        params: $state.params,
+                        url: $state.href($state.current.name, $state.params)
+                    };
+                    return currentStateData;
+                }]
+            }
+        })
         .state('author-detail.edit', {
             parent: 'author-detail',
             url: '/detail/edit',
