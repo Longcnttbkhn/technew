@@ -214,6 +214,14 @@ public class Post implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
+    
+    public boolean checkAuthor(Author author) {
+    	return this.author.equals(author);
+    }
+    
+    public boolean checkStatus(Status status) {
+    	return this.status.equals(status);
+    }
 
     @Override
     public boolean equals(Object o) {

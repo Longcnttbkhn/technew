@@ -243,4 +243,15 @@ public class UserService {
             userRepository.delete(user);
         }
     }
+    
+    public boolean hasAuthority(String role) {
+    	boolean check = false;
+    	User user = getUserWithAuthorities();
+    	Set<Authority> authorities = user.getAuthorities();
+    	for (Authority authority : authorities) {
+    		if (authority.getName().equals(role))
+    			check = true;
+    	}
+    	return check;
+    }
 }

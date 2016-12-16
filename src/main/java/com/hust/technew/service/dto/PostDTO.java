@@ -35,9 +35,11 @@ public class PostDTO implements Serializable {
     private Integer view;
 
 
-    private Long authorId;
+    private AuthorDTO author;
     
-    private Long categoryId;
+    private CategoryDTO category;
+    
+    private Set<CommentDTO> comments;
     
     public Long getId() {
         return id;
@@ -95,24 +97,32 @@ public class PostDTO implements Serializable {
     public void setView(Integer view) {
         this.view = view;
     }
+    
+    public AuthorDTO getAuthor() {
+		return author;
+	}
 
-    public Long getAuthorId() {
-        return authorId;
-    }
+	public void setAuthor(AuthorDTO author) {
+		this.author = author;
+	}
 
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
-    }
+	public CategoryDTO getCategory() {
+		return category;
+	}
 
-    public Long getCategoryId() {
-        return categoryId;
-    }
+	public void setCategory(CategoryDTO category) {
+		this.category = category;
+	}
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
+	public Set<CommentDTO> getComments() {
+		return comments;
+	}
 
-    @Override
+	public void setComments(Set<CommentDTO> comments) {
+		this.comments = comments;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

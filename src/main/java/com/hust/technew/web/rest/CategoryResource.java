@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.hust.technew.domain.Category;
 
 import com.hust.technew.repository.CategoryRepository;
+import com.hust.technew.security.AuthoritiesConstants;
 import com.hust.technew.web.rest.util.HeaderUtil;
 import com.hust.technew.service.dto.CategoryDTO;
 import com.hust.technew.service.mapper.CategoryMapper;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -50,6 +52,7 @@ public class CategoryResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) throws URISyntaxException {
         log.debug("REST request to save Category : {}", categoryDTO);
         if (categoryDTO.getId() != null) {
@@ -76,6 +79,7 @@ public class CategoryResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<CategoryDTO> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO) throws URISyntaxException {
         log.debug("REST request to update Category : {}", categoryDTO);
         if (categoryDTO.getId() == null) {

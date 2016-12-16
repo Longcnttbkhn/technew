@@ -198,7 +198,11 @@ public class Author implements Serializable {
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
     }
-
+    
+    public boolean checkStatus(Status status) {
+    	return this.status.equals(status);
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) {

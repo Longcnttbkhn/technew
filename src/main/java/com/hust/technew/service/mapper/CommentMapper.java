@@ -12,14 +12,13 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {UserMapper.class, })
 public interface CommentMapper {
 
-    @Mapping(source = "user.id", target = "userId")
     @Mapping(source = "post.id", target = "postId")
     CommentDTO commentToCommentDTO(Comment comment);
 
     List<CommentDTO> commentsToCommentDTOs(List<Comment> comments);
 
-    @Mapping(source = "userId", target = "user")
     @Mapping(source = "postId", target = "post")
+    @Mapping(target = "user", ignore = true)
     Comment commentDTOToComment(CommentDTO commentDTO);
 
     List<Comment> commentDTOsToComments(List<CommentDTO> commentDTOs);

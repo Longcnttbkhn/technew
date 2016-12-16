@@ -1,10 +1,9 @@
 package com.hust.technew.service.dto;
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -17,8 +16,7 @@ public class CommentDTO implements Serializable {
     @NotNull
     private String content;
 
-
-    private Long userId;
+    private UserDTO user;
     
     private Long postId;
     
@@ -37,23 +35,23 @@ public class CommentDTO implements Serializable {
         this.content = content;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
+    public UserDTO getUser() {
+		return user;
+	}
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
 
-    public Long getPostId() {
-        return postId;
-    }
+	public Long getPostId() {
+		return postId;
+	}
 
-    public void setPostId(Long postId) {
-        this.postId = postId;
-    }
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
 
-    @Override
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

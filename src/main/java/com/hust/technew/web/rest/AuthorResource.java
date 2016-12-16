@@ -34,6 +34,7 @@ import com.hust.technew.repository.AuthorRepository;
 import com.hust.technew.security.AuthoritiesConstants;
 import com.hust.technew.service.AuthorService;
 import com.hust.technew.service.StorageService;
+import com.hust.technew.service.UserService;
 import com.hust.technew.service.dto.AuthorDTO;
 import com.hust.technew.service.dto.AvatarDTO;
 import com.hust.technew.service.mapper.AuthorMapper;
@@ -60,6 +61,9 @@ public class AuthorResource {
 	
 	@Inject
 	private StorageService storageService;
+	
+	@Inject
+	private UserService userService;
 
 	/**
 	 * POST /authors : Create a new author.
@@ -74,6 +78,7 @@ public class AuthorResource {
 	 */
 	@RequestMapping(value = "/authors", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
+	@Secured(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<AuthorDTO> createAuthor(@Valid @RequestBody AuthorDTO authorDTO) throws URISyntaxException {
 		log.debug("REST request to save Author : {}", authorDTO);
 		if (authorDTO.getId() != null) {
@@ -102,16 +107,57 @@ public class AuthorResource {
 	 */
 	@RequestMapping(value = "/authors", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
+	@Secured({ AuthoritiesConstants.AUTHOR, AuthoritiesConstants.ADMIN})
 	public ResponseEntity<AuthorDTO> updateAuthor(@Valid @RequestBody AuthorDTO authorDTO) throws URISyntaxException {
 		log.debug("REST request to update Author : {}", authorDTO);
 		if (authorDTO.getId() == null) {
 			return createAuthor(authorDTO);
 		}
-		Author author = authorMapper.authorDTOToAuthor(authorDTO);
+		Author author = authorRepository.findOne(authorDTO.getId());
+		if (userService.hasAuthority(AuthoritiesConstants.ADMIN))
+			authorMapper.updateByAdmin(authorDTO, author);
+		else
+			authorMapper.updateByAuthor(authorDTO, author);
 		author = authorRepository.save(author);
 		AuthorDTO result = authorMapper.authorToAuthorDTO(author);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert("author", authorDTO.getId().toString()))
 				.body(result);
+	}
+	
+	/**
+	 * PUT /authors/:id/avatar : update avatar
+	 * 
+	 */
+	@RequestMapping(value = "/authors/{id}/avatar", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@Secured(AuthoritiesConstants.AUTHOR)
+	public ResponseEntity<AvatarDTO> updateAvatar(@RequestParam MultipartFile file) {
+		try {
+			String path = authorService.changeAvatar(file);
+			return new ResponseEntity<>(new AvatarDTO(path), HttpStatus.OK);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	/**
+	 * GET /authors/{id}/avatar/{name} : GET avatar of author
+	 * 
+	 */
+	@RequestMapping(value = "/authors/{id}/avatar/{size}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<Resource> getAvatar(@PathVariable Long id, @PathVariable String size) {
+		String path = "/authors/" + id + "/avatar/" + size;
+		try {
+			Resource avatar = storageService.loadResource(path);
+			return ResponseEntity.ok().body(avatar);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	/**
@@ -126,6 +172,7 @@ public class AuthorResource {
 	 */
 	@RequestMapping(value = "/authors", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
+	@Secured(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<List<AuthorDTO>> getAllAuthors(Pageable pageable) throws URISyntaxException {
 		log.debug("REST request to get a page of Authors");
 		Page<Author> page = authorRepository.findAll(pageable);
@@ -177,46 +224,11 @@ public class AuthorResource {
 	 */
 	@RequestMapping(value = "/authors/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
+	@Secured(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<Void> deleteAuthor(@PathVariable Long id) {
 		log.debug("REST request to delete Author : {}", id);
 		authorRepository.delete(id);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("author", id.toString())).build();
-	}
-
-	/**
-	 * PUT /authors/:id/avatar : update avatar
-	 * 
-	 */
-	@RequestMapping(value = "/authors/{id}/avatar", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Timed
-	@Secured(AuthoritiesConstants.AUTHOR)
-	public ResponseEntity<AvatarDTO> updateAvatar(@RequestParam MultipartFile file) {
-		try {
-			String path = authorService.changeAvatar(file);
-			return new ResponseEntity<>(new AvatarDTO(path), HttpStatus.OK);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-	/**
-	 * GET /authors/{id}/avatar/{name} : GET avatar of author
-	 * 
-	 */
-	@RequestMapping(value = "/authors/{id}/avatar/{size}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Timed
-	public ResponseEntity<Resource> getAvatar(@PathVariable Long id, @PathVariable String size) {
-		String path = "/authors/" + id + "/avatar/" + size;
-		try {
-			Resource avatar = storageService.loadResource(path);
-			return ResponseEntity.ok().body(avatar);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 	}
 
 }
