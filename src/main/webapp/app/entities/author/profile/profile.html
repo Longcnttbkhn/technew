@@ -1,51 +1,49 @@
-
-<div>
-    <h2><span data-translate="technewApp.author.detail.title">Author</span> {{vm.author.id}}</h2>
-    <hr>
-    <jhi-alert-error></jhi-alert-error>
-    <dl class="dl-horizontal jh-entity-details">
-        <dt><span data-translate="technewApp.author.name">Name</span></dt>
-        <dd>
-            <span>{{vm.author.name}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.author.birthDay">Birth Day</span></dt>
-        <dd>
-            <span>{{vm.author.birthDay | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.author.address">Address</span></dt>
-        <dd>
-            <span>{{vm.author.address}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.author.phone">Phone</span></dt>
-        <dd>
-            <span>{{vm.author.phone}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.author.avatar">Avatar</span></dt>
-        <dd>
-            <span>{{vm.author.avatar}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.author.status">Status</span></dt>
-        <dd>
-            <span data-translate="{{'technewApp.Status.' + vm.author.status}}">{{vm.author.status}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.author.aboutMe">About Me</span></dt>
-        <dd>
-            <span>{{vm.author.aboutMe}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.author.user">User</span></dt>
-        <dd>
-            {{vm.author.userId}}
-        </dd>
-    </dl>
-
-    <button type="submit"
-            ui-sref="{{ vm.previousState }}"
-            class="btn btn-info">
-        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
-    </button>
-
-    <button type="button" ui-sref="author-detail.edit({id:vm.author.id})" class="btn btn-primary">
-        <span class="glyphicon glyphicon-pencil"></span>
-        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
-    </button>
+<div class="row">
+    <style type="text/css">
+    .media,
+    .media-body {
+        overflow: initial;
+        zoom: 1;
+    }
+    </style>
+    <div class="col-lg-6 col-md-6 col-xs-12">
+        <div class="media">
+            <div class="media-left">
+                <div class="gs-avatar">
+                    <img src="content/images/author/avatar/md.png" ng-src="{{vm.imgAvatar}}" class="image-md media-object">
+                    <crop-image croped-image="vm.imgAvatar" is-croped="isCroped" class="labelInput"></crop-image>
+                </div>
+            </div>
+            <div class="media-body">
+                <p>
+                    <h4 class="media-heading"><a href="#" editable-text="vm.author.name" e-label="{{ 'technewApp.author.name' | translate }}" onbeforesave="vm.updateauthor()"> {{ vm.author.name || 'technewApp.author.no_name' | translate }}</a></h4>
+                </p>
+                <p>
+                    <a href="#" editable-bsdate="vm.author.birthDay" e-label="{{ 'technewApp.author.birthDay' | translate }}"" e-datepicker-popup="{{dateformat}}" e-is-open="opened.$data" e-ng-click="open($event,'$data')" onbeforesave="vm.updateauthor()">{{(vm.author.birthDay | date:'dd/MM/yyyy') || 'technewApp.author.no_birthDay' | translate }}</a>
+                </p>
+                <p>
+                    <a href="#" editable-text="vm.author.phone" e-label="{{ 'technewApp.author.phone' | translate }}"" onbeforesave="vm.updateauthor()"> {{ vm.author.phone || 'technewApp.author.no_phone' | translate }}</a>
+                </p>
+                <p>
+                    <a href="#" editable-text="vm.author.address" e-label="{{ 'technewApp.author.address' | translate }}"" onbeforesave="vm.updateauthor()"> {{ vm.author.address || 'technewApp.author.no_address' | translate }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-xs-12">
+        <div class="panel-default">
+            <div class="panel-heading" style="cursor: pointer" ng-init="show_gt=false" ng-show="show_gt" ng-click="show_gt=false; vm.updateauthor()">
+                <span class="h4" data-translate="technewApp.author.edit_aboutMe"></span>
+            </div>
+            <div class="panel-heading c-bee" style="cursor: pointer" ng-init="show_gt=false" ng-hide="show_gt" ng-click="show_gt = true">
+                <span class="h4" data-translate="technewApp.author.aboutMe"></span>
+            </div>
+            <div class="panel-body">
+                <div text-angular ng-model="vm.author.aboutMe" ng-show="show_gt">
+                </div>
+                <div ng-hide="show_gt" ng-bind-html="vm.author.aboutMe | limitTo: 1000">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

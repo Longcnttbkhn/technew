@@ -374,3 +374,51 @@ Social Buttons
 }
 
 /* jhipster-needle-css-add-main JHipster will add new css style */
+
+.gs-avatar {
+    position: relative;
+    display: inline-block;
+}
+
+.gs-avatar .labelInput {
+    position: absolute;
+    margin-bottom: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: black;
+    width: 100%;
+    font-size: 30px;
+    color: lightcyan;
+    opacity: 0.8;
+    text-align: center;
+    cursor: pointer;
+    display: none;
+}
+
+.gs-avatar .labelInput:hover {
+    opacity: 1;
+}
+
+.gs-avatar:hover .labelInput {
+    display: inherit;
+}
+
+.image-xs {
+    width: 40px;
+    height: 40px;
+}
+
+.image-sm {
+    width: 80px;
+    height: 80px;
+}
+
+.image-md {
+    width: 160px;
+    height: 160px;
+}
+
+.image-lg {
+    width: 320px;
+    height: 320px;
+}

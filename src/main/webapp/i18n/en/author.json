@@ -17,12 +17,17 @@
                 "title": "Author"
             },
             "name": "Name",
-            "birthDay": "Birth Day",
+            "no_name": "Click to in put name",
+            "birthDay": "Birth day",
+            "no_birthDay": "Click to input birthday",
             "address": "Address",
+            "no_address": "Click to input address",
             "phone": "Phone",
+            "no_phone": "Click to input phone",
             "avatar": "Avatar",
             "status": "Status",
-            "aboutMe": "About Me",
+            "aboutMe": "About me<span class=\"h5\"> (click to edit)</span>",
+            "edit_aboutMe": "Edit about me<span class=\"h5\"> (click to save)</span>",
             "user": "User",
             "post": "Post"
         }

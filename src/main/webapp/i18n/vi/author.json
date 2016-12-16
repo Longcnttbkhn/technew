@@ -17,12 +17,17 @@
                 "title": "Tác giả"
             },
             "name": "Tên",
+            "no_name": "Click để nhập tên",
             "birthDay": "Ngày sinh",
+            "no_birthDay": "Click để nhập ngày sinh",
             "address": "Địa chỉ",
+            "no_address": "Click để nhập địa chỉ",
             "phone": "Số điện thoại",
+            "no_phone": "Click để nhập số điện thoại",
             "avatar": "Ảnh đại diện",
             "status": "Trạng thái",
-            "aboutMe": "Giới thiệu bản thân",
+            "aboutMe": "Giới thiệu bản thân<span class=\"h5\"> (click để chỉnh sửa)</span>",
+            "edit_aboutMe": "Chỉnh sửa giới thiệu bản thân <span class=\"h5\"> (click để lưu)</span>",
             "user": "Người dùng",
             "post": "Bài đăng"
         }

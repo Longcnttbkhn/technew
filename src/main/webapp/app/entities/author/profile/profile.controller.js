@@ -3,19 +3,48 @@
 
     angular
         .module('technewApp')
-        .controller('AuthorDetailController', AuthorDetailController);
+        .controller('ProfileController', ProfileController);
 
-    AuthorDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Author', 'User', 'Post'];
+    ProfileController.$inject = ['$scope', 'entity', 'Author', 'UploadImage'];
 
-    function AuthorDetailController($scope, $rootScope, $stateParams, previousState, entity, Author, User, Post) {
+    function ProfileController($scope, entity, Author, UploadImage) {
         var vm = this;
 
-        vm.author = entity;
-        vm.previousState = previousState.name;
+        $scope.opened = {};
 
-        var unsubscribe = $rootScope.$on('technewApp:authorUpdate', function(event, result) {
-            vm.author = result;
+        $scope.open = function($event, elementOpened) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened[elementOpened] = !$scope.opened[elementOpened];
+        };
+
+        vm.author = entity;
+
+        // Upload image 
+        $scope.isCroped = false;
+        if (vm.author.avatar)
+            vm.imgAvatar = vm.author.avatar + 'md';
+
+        $scope.$watch('isCroped', function() {
+            if ($scope.isCroped) {
+                UploadImage.upload('/api/authors/' + vm.author.id + '/avatar', 'PUT', vm.imgAvatar, function(response) {
+                    vm.author.avatar = response.data.avatar;
+                    vm.imgAvatar = response.data.avatar + 'md';
+                }, function() {
+                    vm.imgAvatar = vm.author.avatar + 'md';
+                })
+            }
         });
-        $scope.$on('$destroy', unsubscribe);
+
+        // Goi phuong thuc nay khi upload thong tin cho author
+        vm.updateauthor = function() {
+            Author.update(vm.author, function(result) {
+                // success
+            }, function() {
+                // error
+            });
+        }
+
     }
 })();

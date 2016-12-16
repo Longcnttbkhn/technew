@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('giasanApp')
+        .module('technewApp')
         .factory('UploadImage', UploadImage);
 
     UploadImage.$inject = ['Upload'];

@@ -1,16 +1,20 @@
 package com.hust.technew.service;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hust.technew.domain.Author;
 import com.hust.technew.domain.Authority;
 import com.hust.technew.domain.User;
 import com.hust.technew.repository.AuthorRepository;
+import com.hust.technew.repository.UserRepository;
 import com.hust.technew.security.AuthoritiesConstants;
+import com.hust.technew.security.SecurityUtils;
 
 @Service
 public class AuthorService {
@@ -19,6 +23,12 @@ public class AuthorService {
 	
 	@Inject
 	UserService userService;
+	
+	@Inject
+	StorageService storageService;
+	
+	@Inject
+	UserRepository userRepository;
 	
 	public boolean hasAuthority(User user, String role) {
 		boolean check = false;
@@ -37,5 +47,15 @@ public class AuthorService {
 			return optionalAuthor.get();
 		} else
 			return null;
+	}
+	
+	public String changeAvatar(MultipartFile file) throws IOException {
+	    User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+	    Author author = authorRepository.findOneByUserId(user.getId()).get();
+	    String path = "/authors/" + author.getId() + "/avatar";
+	    storageService.saveAvatar(file, path);
+	    author.setAvatar("/api" + path + "/");
+	    authorRepository.save(author);
+	    return "/api" + path + "/";
 	}
 }

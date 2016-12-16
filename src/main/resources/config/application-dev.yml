@@ -99,3 +99,5 @@ jhipster:
             host: localhost
             port: 5000
             queueSize: 512
+    storage: 
+        location: upload-dir

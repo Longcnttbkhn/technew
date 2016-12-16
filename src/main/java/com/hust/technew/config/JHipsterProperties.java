@@ -1,6 +1,7 @@
 package com.hust.technew.config;
 
 import javax.validation.constraints.NotNull;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -33,6 +34,8 @@ public class JHipsterProperties {
     private final Social social = new Social();
 
     private final Ribbon ribbon = new Ribbon();
+    
+    private final Storage storage = new Storage();
 
     public Async getAsync() {
         return async;
@@ -72,6 +75,10 @@ public class JHipsterProperties {
 
     public Ribbon getRibbon() {
         return ribbon;
+    }
+    
+    public Storage getStorage() {
+    	return storage;
     }
 
     public static class Async {
@@ -491,5 +498,18 @@ public class JHipsterProperties {
         public void setDisplayOnActiveProfiles(String[] displayOnActiveProfiles) {
             this.displayOnActiveProfiles = displayOnActiveProfiles;
         }
+    }
+    
+    public static class Storage {
+    	private String location = "upload-dir";
+
+		public String getLocation() {
+			return location;
+		}
+
+		public void setLocation(String location) {
+			this.location = location;
+		}
+    	
     }
 }

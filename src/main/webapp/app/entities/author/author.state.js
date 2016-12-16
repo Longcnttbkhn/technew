@@ -82,19 +82,10 @@
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('author');
-                    $translatePartialLoader.addPart('status');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Author', function($stateParams, Author) {
+                entity: ['Author', function(Author) {
                     return Author.current().$promise;
-                }],
-                previousState: ["$state", function ($state) {
-                    var currentStateData = {
-                        name: $state.current.name || 'author',
-                        params: $state.params,
-                        url: $state.href($state.current.name, $state.params)
-                    };
-                    return currentStateData;
                 }]
             }
         })

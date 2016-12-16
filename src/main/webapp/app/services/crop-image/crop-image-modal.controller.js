@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('giasanApp')
+        .module('technewApp')
         .controller('CropImageModalController1', CropImageModalController1);
 
     CropImageModalController1.$inject = ['$uibModalInstance', 'file']

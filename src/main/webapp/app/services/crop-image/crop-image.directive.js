@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('giasanApp')
+        .module('technewApp')
         .directive('cropImage', cropImage);
 
     cropImage.$inject = [];
