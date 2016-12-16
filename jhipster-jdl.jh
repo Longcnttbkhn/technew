@@ -1,28 +1,24 @@
 entity Author {
-	name String required maxlength(45),
+	name String required,
     birthDay LocalDate,
-    address String maxlength(45),
-    phone String maxlength(14),
-    avatar String maxlength(45),
+    address String,
+    phone String,
+    avatar String,
     status Status required,
-    aboutMe String maxlength(200)
+    aboutMe String maxlength(10000)
 }
 
 entity Post {
-	title String required maxlength(150),
+	title String required,
     content String required maxlength(10000),
-    decription String required maxlength(150),
-    avatar String required maxlength(100),
-    status Status required,
-    createdDate ZonedDateTime required,
-    view Integer required
+    decription String required,
+    avatar String,
+    status Status,
+    createdDate ZonedDateTime,
+    view Integer
 }
 
 entity Category {
-	name String required maxlength(45)
-}
-
-entity Tag {
 	name String required
 }
 
@@ -40,10 +36,6 @@ relationship OneToMany {
 
 relationship OneToMany {
 	Category{post} to Post{category}
-}
-
-relationship ManyToMany {
-	Post{tag} to Tag{post}
 }
 
 relationship OneToOne {
