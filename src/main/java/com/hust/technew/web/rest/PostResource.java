@@ -69,7 +69,7 @@ public class PostResource {
 
 	@Inject
 	private PostService postService;
-	
+
 	@Inject
 	private StorageService storageService;
 
@@ -229,10 +229,54 @@ public class PostResource {
 	 */
 	@RequestMapping(value = "/posts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
+	@Secured(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<List<PostLessDTO>> getAllPosts(Pageable pageable) throws URISyntaxException {
 		log.debug("REST request to get a page of Posts");
-		Page<Post> page = postRepository.findAll(pageable);
+		Page<Post> page = postRepository.findAllByOrderByCreatedDateDesc(pageable);
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/posts");
+		return new ResponseEntity<>(postMapper.postsToPostLessDTOs(page.getContent()), headers, HttpStatus.OK);
+	}
+
+	/**
+	 * GET /posts/new : get new the posts.
+	 *
+	 * @param pageable
+	 *            the pagination information
+	 * @return the ResponseEntity with status 200 (OK) and the list of posts in
+	 *         body
+	 * @throws URISyntaxException
+	 *             if there is an error to generate the pagination HTTP headers
+	 */
+	@RequestMapping(value = "/posts/new", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<List<PostLessDTO>> getNewPosts(Pageable pageable) throws URISyntaxException {
+		log.debug("REST request to get a page of Posts");
+		Page<Post> page = postRepository.findAllByStatusOrderByCreatedDateDesc(pageable, Status.APPROVED);
+		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/posts/new");
+		return new ResponseEntity<>(postMapper.postsToPostLessDTOs(page.getContent()), headers, HttpStatus.OK);
+	}
+
+	/**
+	 * GET /posts/category/:id : get posts of category.
+	 *
+	 * @param pageable
+	 *            the pagination information
+	 * @return the ResponseEntity with status 200 (OK) and the list of posts in
+	 *         body
+	 * @throws URISyntaxException
+	 *             if there is an error to generate the pagination HTTP headers
+	 */
+	@RequestMapping(value = "/posts/category/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<List<PostLessDTO>> getAllPostsByCategory(Pageable pageable, @PathVariable Long id)
+			throws URISyntaxException {
+		log.debug("REST request to get a page of Posts");
+		Page<Post> page;
+		if (userService.hasAuthority(AuthoritiesConstants.ADMIN))
+			page = postRepository.findAllByCategoryIdOrderByCreatedDateDesc(pageable, id);
+		else
+			page = postRepository.findAllByStatusAndCategoryIdOrderByCreatedDateDesc(pageable, Status.APPROVED, id);
+		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/posts/category");
 		return new ResponseEntity<>(postMapper.postsToPostLessDTOs(page.getContent()), headers, HttpStatus.OK);
 	}
 
@@ -249,7 +293,21 @@ public class PostResource {
 	public ResponseEntity<PostDTO> getPost(@PathVariable Long id) {
 		log.debug("REST request to get Post : {}", id);
 		Post post = postRepository.findOne(id);
+		post.view();
+		post = postRepository.save(post);
 		PostDTO postDTO = postMapper.postToPostDTO(post);
+		if (userService.hasAuthority(AuthoritiesConstants.ADMIN))
+			postDTO.setRoleAdmin(true);
+		else
+			postDTO.setRoleAdmin(false);
+		if (userService.hasAuthority(AuthoritiesConstants.AUTHOR)) {
+			Author author = authorService.getCurrentAuthor();
+			if (post.checkAuthor(author))
+				postDTO.setRoleOwner(true);
+			else
+				postDTO.setRoleOwner(false);
+		} else
+			postDTO.setRoleOwner(false);
 		return Optional.ofNullable(postDTO).map(result -> new ResponseEntity<>(result, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
@@ -283,7 +341,7 @@ public class PostResource {
 			if (post.checkStatus(Status.APPROVED))
 				return ResponseEntity.badRequest()
 						.headers(
-								HeaderUtil.createFailureAlert("post", "approved", "You can't modify the approved post"))
+								HeaderUtil.createFailureAlert("post", "approved", "You can't delete the approved post"))
 						.body(null);
 		}
 		postRepository.delete(id);
@@ -305,7 +363,17 @@ public class PostResource {
 	public ResponseEntity<List<PostLessDTO>> getAllPostByAuthors(Pageable pageable, @PathVariable Long id)
 			throws URISyntaxException {
 		log.debug("REST request to get a page of Posts");
-		Page<Post> page = postRepository.findAllByAuthorId(pageable, id);
+		Page<Post> page;
+		if (userService.hasAuthority(AuthoritiesConstants.ADMIN))
+			page = postRepository.findAllByAuthorIdOrderByCreatedDateDesc(pageable, id);
+		else if (userService.hasAuthority(AuthoritiesConstants.AUTHOR)) {
+			Author author = authorService.getCurrentAuthor();
+			if (author.getId().equals(id))
+				page = postRepository.findAllByAuthorIdOrderByCreatedDateDesc(pageable, id);
+			else
+				page = postRepository.findAllByStatusAndAuthorIdOrderByCreatedDateDesc(pageable, Status.APPROVED, id);
+		} else
+			page = postRepository.findAllByStatusAndAuthorIdOrderByCreatedDateDesc(pageable, Status.APPROVED, id);
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/posts/author");
 		return new ResponseEntity<>(postMapper.postsToPostLessDTOs(page.getContent()), headers, HttpStatus.OK);
 	}

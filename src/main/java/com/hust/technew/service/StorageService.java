@@ -23,11 +23,12 @@ import com.hust.technew.config.JHipsterProperties;
 public class StorageService {
 
 	private final String rootLocation;
-
-	private final int LG = 320;
+	
 	private final int MD = 160;
 	private final int SM = 80;
-	private final int XS = 40;
+	
+	private final int POST_W = 250;
+	private final int POST_H = 150;
 
 	@Autowired
 	public StorageService(JHipsterProperties jhHipsterProperties) {
@@ -43,7 +44,7 @@ public class StorageService {
 		return resizedImage;
 	}
 
-	public void saveAvatar(MultipartFile fileSource, String path) throws IOException {
+	public void saveAvatarPost(MultipartFile fileSource, String path) throws IOException {
 		String pathStr = rootLocation + path;
 		Path pathDist = Paths.get(pathStr);
 		File fileDist = pathDist.toFile();
@@ -55,14 +56,26 @@ public class StorageService {
 			}
 		}
 		BufferedImage bImg = ImageIO.read(fileSource.getInputStream());
-		BufferedImage resizeImg = resizeImage(bImg, LG, LG);
-		ImageIO.write(resizeImg, "png", pathDist.resolve("lg").toFile());
-		resizeImg = resizeImage(bImg, MD, MD);
+		BufferedImage resizeImg = resizeImage(bImg, POST_W, POST_H);
+		ImageIO.write(resizeImg, "png", pathDist.resolve("md").toFile());
+	}
+	
+	public void saveAvatarAuthor(MultipartFile fileSource, String path) throws IOException {
+		String pathStr = rootLocation + path;
+		Path pathDist = Paths.get(pathStr);
+		File fileDist = pathDist.toFile();
+		if (!fileDist.exists()) {
+			fileDist.mkdirs();
+		} else {
+			if (fileDist.list().length != 0) {
+				FileUtils.cleanDirectory(fileDist);
+			}
+		}
+		BufferedImage bImg = ImageIO.read(fileSource.getInputStream());
+		BufferedImage resizeImg = resizeImage(bImg, MD, MD);
 		ImageIO.write(resizeImg, "png", pathDist.resolve("md").toFile());
 		resizeImg = resizeImage(bImg, SM, SM);
 		ImageIO.write(resizeImg, "png", pathDist.resolve("sm").toFile());
-		resizeImg = resizeImage(bImg, XS, XS);
-		ImageIO.write(resizeImg, "png", pathDist.resolve("xs").toFile());
 	}
 
 	public Resource loadResource(String path) throws MalformedURLException {

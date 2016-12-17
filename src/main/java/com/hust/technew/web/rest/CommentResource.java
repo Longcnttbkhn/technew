@@ -1,11 +1,15 @@
 package com.hust.technew.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.hust.technew.domain.Author;
 import com.hust.technew.domain.Comment;
-
+import com.hust.technew.domain.Post;
+import com.hust.technew.domain.enumeration.Status;
 import com.hust.technew.repository.CommentRepository;
+import com.hust.technew.repository.PostRepository;
 import com.hust.technew.security.AuthoritiesConstants;
 import com.hust.technew.web.rest.util.HeaderUtil;
+import com.hust.technew.service.AuthorService;
 import com.hust.technew.service.UserService;
 import com.hust.technew.service.dto.CommentDTO;
 import com.hust.technew.service.mapper.CommentMapper;
@@ -44,6 +48,12 @@ public class CommentResource {
     
     @Inject
     private UserService userService;
+    
+    @Inject
+    private PostRepository postRepository;
+    
+    @Inject
+    private AuthorService authorService;
 
     /**
      * POST  /comments : Create a new comment.
@@ -140,8 +150,24 @@ public class CommentResource {
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.AUTHOR})
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
         log.debug("REST request to delete Comment : {}", id);
+        Comment comment = commentRepository.findOne(id);
+        Post post = postRepository.findOne(comment.getPost().getId());
+		if (!userService.hasAuthority(AuthoritiesConstants.ADMIN)) {
+			Author author = authorService.getCurrentAuthor();
+			// Kiem tra so huu
+			if (!post.checkAuthor(author))
+				return ResponseEntity.badRequest()
+						.headers(HeaderUtil.createFailureAlert("post", "notOwner", "You are not owner of this post"))
+						.body(null);
+			// Kiem tra trang thai author
+			if (author.checkStatus(Status.LOCKED))
+				return ResponseEntity.badRequest()
+						.headers(HeaderUtil.createFailureAlert("author", "locked", "Your account has been locked"))
+						.body(null);
+		}
         commentRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("comment", id.toString())).build();
     }

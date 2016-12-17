@@ -222,7 +222,11 @@ public class Post implements Serializable {
     public boolean checkStatus(Status status) {
     	return this.status.equals(status);
     }
-
+    
+    public void view() {
+    	view++;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) {

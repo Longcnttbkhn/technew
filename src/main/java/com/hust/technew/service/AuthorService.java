@@ -53,7 +53,7 @@ public class AuthorService {
 	    User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 	    Author author = authorRepository.findOneByUserId(user.getId()).get();
 	    String path = "/authors/" + author.getId() + "/avatar";
-	    storageService.saveAvatar(file, path);
+	    storageService.saveAvatarAuthor(file, path);
 	    author.setAvatar("/api" + path + "/");
 	    authorRepository.save(author);
 	    return "/api" + path + "/";

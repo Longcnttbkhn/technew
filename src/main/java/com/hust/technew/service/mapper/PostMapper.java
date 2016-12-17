@@ -13,27 +13,26 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {AuthorMapper.class, CategoryMapper.class, CommentMapper.class, })
 public interface PostMapper {
 
+	@Mapping(target = "roleAdmin", ignore = true)
+	@Mapping(target = "roleOwner", ignore = true)
     PostDTO postToPostDTO(Post post);
 
     List<PostDTO> postsToPostDTOs(List<Post> posts);
 
     @Mapping(target = "comments", ignore = true)
     @Mapping(target = "author", ignore = true)
-    @Mapping(target = "star", constant = "0")
     @Mapping(target = "view", constant = "0")
     @Mapping(target = "status", constant = "PENDING")
     Post postDTOToPost(PostDTO postDTO);
     
     @Mapping(target = "comments", ignore = true)
     @Mapping(target = "author", ignore = true)
-    @Mapping(target = "star", ignore = true)
     @Mapping(target = "view", ignore = true)
     @Mapping(target = "status", ignore = true)
     void updateByAuthor(PostDTO postDTO, @MappingTarget Post post);
     
     @Mapping(target = "comments", ignore = true)
     @Mapping(target = "author", ignore = true)
-    @Mapping(target = "star", ignore = true)
     @Mapping(target = "view", ignore = true)
     void updateByAdmin(PostDTO postDTO, @MappingTarget Post post);
     

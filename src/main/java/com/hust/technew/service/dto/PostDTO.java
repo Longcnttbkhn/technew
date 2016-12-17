@@ -34,12 +34,15 @@ public class PostDTO implements Serializable {
 
     private Integer view;
 
-
     private AuthorDTO author;
     
     private CategoryDTO category;
     
     private Set<CommentDTO> comments;
+    
+    private boolean roleAdmin;
+    
+    private boolean roleOwner;
     
     public Long getId() {
         return id;
@@ -120,6 +123,22 @@ public class PostDTO implements Serializable {
 
 	public void setComments(Set<CommentDTO> comments) {
 		this.comments = comments;
+	}
+
+	public boolean isRoleAdmin() {
+		return roleAdmin;
+	}
+
+	public void setRoleAdmin(boolean roleAdmin) {
+		this.roleAdmin = roleAdmin;
+	}
+
+	public boolean isRoleOwner() {
+		return roleOwner;
+	}
+
+	public void setRoleOwner(boolean roleOwner) {
+		this.roleOwner = roleOwner;
 	}
 
 	@Override

@@ -14,7 +14,7 @@ public class PostService {
 	
 	public String changeAvatar(MultipartFile file, Long id) throws IOException {
 	    String path = "/posts/" + id + "/avatar";
-	    storageService.saveAvatar(file, path);
+	    storageService.saveAvatarPost(file, path);
 	    return "/api" + path + "/";
 	}
 }

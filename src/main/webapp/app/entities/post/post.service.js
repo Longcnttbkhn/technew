@@ -25,7 +25,38 @@
             'author': {
                 method: 'GET',
                 url: 'api/posts/author/:id',
-                isArray: true
+                isArray: true,
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                        data.createdDate = DateUtils.convertDateTimeFromServer(data.createdDate);
+                    }
+                    return data;
+                }
+            },
+            'category': {
+                method: 'GET',
+                url: 'api/posts/category/:id',
+                isArray: true,
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                        data.createdDate = DateUtils.convertDateTimeFromServer(data.createdDate);
+                    }
+                    return data;
+                }
+            },
+            'new': {
+                method: 'GET',
+                url: 'api/posts/new/:id',
+                isArray: true,
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                        data.createdDate = DateUtils.convertDateTimeFromServer(data.createdDate);
+                    }
+                    return data;
+                }
             }
         });
     }
