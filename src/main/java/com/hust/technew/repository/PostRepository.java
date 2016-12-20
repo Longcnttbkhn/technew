@@ -3,6 +3,7 @@ package com.hust.technew.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.hust.technew.domain.Author;
 import com.hust.technew.domain.Post;

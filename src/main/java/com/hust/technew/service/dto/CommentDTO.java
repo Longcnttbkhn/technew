@@ -16,7 +16,7 @@ public class CommentDTO implements Serializable {
     @NotNull
     private String content;
 
-    private UserDTO user;
+    private String userLogin;
     
     private Long postId;
     
@@ -35,12 +35,12 @@ public class CommentDTO implements Serializable {
         this.content = content;
     }
 
-    public UserDTO getUser() {
-		return user;
+	public String getUserLogin() {
+		return userLogin;
 	}
 
-	public void setUser(UserDTO user) {
-		this.user = user;
+	public void setUserLogin(String userLogin) {
+		this.userLogin = userLogin;
 	}
 
 	public Long getPostId() {

@@ -27,7 +27,7 @@ public class StorageService {
 	private final int MD = 160;
 	private final int SM = 80;
 	
-	private final int POST_W = 250;
+	private final int POST_W = 200;
 	private final int POST_H = 150;
 
 	@Autowired

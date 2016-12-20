@@ -13,6 +13,7 @@ import java.util.List;
 public interface CommentMapper {
 
     @Mapping(source = "post.id", target = "postId")
+    @Mapping(source = "user.login", target = "userLogin")
     CommentDTO commentToCommentDTO(Comment comment);
 
     List<CommentDTO> commentsToCommentDTOs(List<Comment> comments);

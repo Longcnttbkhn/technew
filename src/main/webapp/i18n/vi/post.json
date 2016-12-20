@@ -3,9 +3,9 @@
         "post" : {
             "home": {
                 "title": "Posts",
-                "createLabel": "Create a new Post",
-                "createOrEditLabel": "Create or edit a Post",
-                "search": "Search for Post"
+                "createLabel": "Bài viết mới",
+                "createOrEditLabel": "Tạo hoặc chỉnh sửa bài viết",
+                "search": "Tìm kiếm bài viết"
             },
             "created": "A new Post is created with identifier {{ param }}",
             "updated": "A Post is updated with identifier {{ param }}",
@@ -16,16 +16,16 @@
             "detail": {
                 "title": "Post"
             },
-            "title": "Title",
-            "content": "Content",
-            "decription": "Decription",
-            "avatar": "Avatar",
-            "status": "Status",
+            "title": "Tiêu đề",
+            "content": "Nội dung",
+            "decription": "Mô tả",
+            "avatar": "Ảnh",
+            "status": "Trạng thái",
             "createdDate": "Created Date",
             "view": "View",
             "comment": "Comment",
             "author": "Author",
-            "category": "Category"
+            "category": "Chủ đề"
         }
     }
 }

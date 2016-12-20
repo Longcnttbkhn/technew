@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/author',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN'],
                 pageTitle: 'technewApp.author.home.title'
             },
             views: {
@@ -26,6 +26,7 @@
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('author');
+                    $translatePartialLoader.addPart('post');
                     $translatePartialLoader.addPart('status');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
@@ -36,7 +37,7 @@
             parent: 'entity',
             url: '/author/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: [],
                 pageTitle: 'technewApp.author.detail.title'
             },
             views: {
@@ -54,71 +55,14 @@
                 }],
                 entity: ['$stateParams', 'Author', function($stateParams, Author) {
                     return Author.get({id : $stateParams.id}).$promise;
-                }],
-                previousState: ["$state", function ($state) {
-                    var currentStateData = {
-                        name: $state.current.name || 'author',
-                        params: $state.params,
-                        url: $state.href($state.current.name, $state.params)
-                    };
-                    return currentStateData;
                 }]
             }
-        })
-        .state('profile', {
-            parent: 'entity',
-            url: '/profile',
-            data: {
-                authorities: ['ROLE_AUTHOR'],
-                pageTitle: 'technewApp.author.detail.title'
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/entities/author/profile/profile.html',
-                    controller: 'ProfileController',
-                    controllerAs: 'vm'
-                }
-            },
-            resolve: {
-                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('author');
-                    return $translate.refresh();
-                }],
-                entity: ['Author', function(Author) {
-                    return Author.current().$promise;
-                }]
-            }
-        })
-        .state('author-detail.edit', {
-            parent: 'author-detail',
-            url: '/detail/edit',
-            data: {
-                authorities: ['ROLE_USER']
-            },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
-                    templateUrl: 'app/entities/author/author-dialog.html',
-                    controller: 'AuthorDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'md',
-                    resolve: {
-                        entity: ['Author', function(Author) {
-                            return Author.get({id : $stateParams.id}).$promise;
-                        }]
-                    }
-                }).result.then(function() {
-                    $state.go('^', {}, { reload: false });
-                }, function() {
-                    $state.go('^');
-                });
-            }]
         })
         .state('author.new', {
             parent: 'author',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -152,7 +96,7 @@
             parent: 'author',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -160,7 +104,7 @@
                     controller: 'AuthorDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
-                    size: 'lg',
+                    size: 'md',
                     resolve: {
                         entity: ['Author', function(Author) {
                             return Author.get({id : $stateParams.id}).$promise;
@@ -177,7 +121,7 @@
             parent: 'author',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

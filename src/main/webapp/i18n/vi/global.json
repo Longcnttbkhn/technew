@@ -3,7 +3,7 @@
         "title": "Technew",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
-            "home": "Home",
+            "home": "Trang chủ",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
@@ -46,18 +46,18 @@
         },
         "form": {
             "username": "Username",
-            "username.placeholder": "Your username",
-            "newpassword": "New password",
-            "newpassword.placeholder": "New password",
-            "confirmpassword": "New password confirmation",
-            "confirmpassword.placeholder": "Confirm the new password",
+            "username.placeholder": "Username của bạn",
+            "newpassword": "Mật khẩu mới",
+            "newpassword.placeholder": "Mật khẩu mới",
+            "confirmpassword": "Nhập lại mật khẩu",
+            "confirmpassword.placeholder": "Nhập lại mật khẩu",
             "email": "E-mail",
-            "email.placeholder": "Your e-mail"
+            "email.placeholder": "e-mail của bạn"
         },
         "messages": {
             "info": {
                 "authenticated": "If you want to <a class=\"alert-link\" href=\"\" ng-click=\"vm.login()\">sign in</a>, you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\").",
-                "register": "You don't have an account yet? <a class=\"alert-link\" href=\"\" ng-click=\"vm.register()\">Register a new account</a>"
+                "register": "Bạn chưa có tài khoản? <a class=\"alert-link\" href=\"\" ng-click=\"vm.register()\">Đăng ký ngay</a>"
             },
             "error": {
                 "dontmatch": "The password and its confirmation do not match!"

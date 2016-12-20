@@ -8,14 +8,37 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('home', {
+        $stateProvider.state('public', {
             parent: 'app',
-            url: '/',
+            abstract: true,
             data: {
                 authorities: []
             },
             views: {
                 'content@': {
+                    templateUrl: 'app/home/public.html',
+                    controller: 'PublicController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                categories: ['Category', function(Category) {
+                    return Category.query().$promise;
+                }],
+                mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
+                    $translatePartialLoader.addPart('category');
+                    return $translate.refresh();
+                }]
+            }
+        })
+        .state('home', {
+            parent: 'public',
+            url: '/',
+            data: {
+                authorities: []
+            },
+            views: {
+                'public-content': {
                     templateUrl: 'app/home/home.html',
                     controller: 'HomeController',
                     controllerAs: 'vm'

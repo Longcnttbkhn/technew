@@ -15,6 +15,7 @@ public interface PostMapper {
 
 	@Mapping(target = "roleAdmin", ignore = true)
 	@Mapping(target = "roleOwner", ignore = true)
+	@Mapping(target = "comments", ignore = true)
     PostDTO postToPostDTO(Post post);
 
     List<PostDTO> postsToPostDTOs(List<Post> posts);

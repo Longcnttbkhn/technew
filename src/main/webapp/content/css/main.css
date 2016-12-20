@@ -403,6 +403,10 @@ Social Buttons
     display: inherit;
 }
 
+.avatar {
+    height: 41px;
+}
+
 .image-xs {
     width: 40px;
     height: 40px;

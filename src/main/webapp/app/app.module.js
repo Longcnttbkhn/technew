@@ -20,7 +20,8 @@
             'xeditable',
             'toaster',
             'textAngular',
-            'ngImgCrop'
+            'angular-img-cropper',
+            'ngtimeago'
         ])
         .run(run);
 

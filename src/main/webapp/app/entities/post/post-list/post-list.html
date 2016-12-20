@@ -1,0 +1,24 @@
+<div infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="post in vm.posts track by post.id">
+            <div class="media">
+                <div class="media-left media-top" style="position: relative;">
+                    <a ui-sref="post-detail({id: post.id})">
+                        <img class="media-object" src="content/images/post/avatar/md.png" style="height: 150px; width: 200px" alt="..." ng-src="{{post.avatar ? post.avatar + 'md' : null}}">
+                    </a>
+                    <strong class="label label-primary" style="position: absolute; bottom: 20px; left: 5px; font-size: 14px">{{post.categoryName}}</strong>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading"><a ui-sref="post-detail({id: post.id})"><b>{{post.title}}</b></a></h4>
+                    <small><strong>{{post.authorName}}</strong> {{post.createdDate|timeago}}</small>
+                    <h5>{{post.decription | limitTo: 70}}</h5>
+                    <div class="pull-right dropdown" uib-dropdown style="margin-right: 10px" ng-if="!vm.$state.includes('home')">
+                        <button class="btn btn-success dropdown-toggle" uib-dropdown-toggle type="button" data-toggle="dropdown" ng-if="post.status == 'APPROVED'"><i class="fa fa-check"></i> Đã phê duyệt <span class="caret"></span></button>
+                        <button class="btn btn-info dropdown-toggle" uib-dropdown-toggle type="button" data-toggle="dropdown" ng-if="post.status == 'PENDING'"><i class="fa fa-ellipsis-h"></i> Đang chờ phê duyệt <span class="caret"></span></button>
+                        <button class="btn btn-danger dropdown-toggle" uib-dropdown-toggle type="button" data-toggle="dropdown" ng-if="post.status == 'NO_APPROVE'"><i class="glyphicon glyphicon-remove"></i> Không phê duyệt <span class="caret"></span></button>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

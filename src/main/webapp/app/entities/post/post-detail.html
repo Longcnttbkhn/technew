@@ -1,55 +1,44 @@
-
 <div>
-    <h2><span data-translate="technewApp.post.detail.title">Post</span> {{vm.post.id}}</h2>
-    <hr>
-    <jhi-alert-error></jhi-alert-error>
-    <dl class="dl-horizontal jh-entity-details">
-        <dt><span data-translate="technewApp.post.title">Title</span></dt>
-        <dd>
-            <span>{{vm.post.title}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.post.content">Content</span></dt>
-        <dd>
-            <span>{{vm.post.content}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.post.decription">Decription</span></dt>
-        <dd>
-            <span>{{vm.post.decription}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.post.avatar">Avatar</span></dt>
-        <dd>
-            <span>{{vm.post.avatar}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.post.status">Status</span></dt>
-        <dd>
-            <span data-translate="{{'technewApp.Status.' + vm.post.status}}">{{vm.post.status}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.post.createdDate">Created Date</span></dt>
-        <dd>
-            <span>{{vm.post.createdDate | date:'medium'}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.post.view">View</span></dt>
-        <dd>
-            <span>{{vm.post.view}}</span>
-        </dd>
-        <dt><span data-translate="technewApp.post.author">Author</span></dt>
-        <dd>
-            <a ui-sref="author-detail({id:vm.post.authorId})">{{vm.post.authorId}}</a>
-        </dd>
-        <dt><span data-translate="technewApp.post.category">Category</span></dt>
-        <dd>
-            <a ui-sref="category-detail({id:vm.post.categoryId})">{{vm.post.categoryId}}</a>
-        </dd>
-    </dl>
-
-    <button type="submit"
-            ui-sref="{{ vm.previousState }}"
-            class="btn btn-info">
-        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
-    </button>
-
-    <button type="button" ui-sref="post-detail.edit({id:vm.post.id})" class="btn btn-primary">
-        <span class="glyphicon glyphicon-pencil"></span>
-        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
-    </button>
+    <h2>{{vm.post.title}}</h2>
+    <div>
+        Theo <strong><a ui-sref="author-detail({id: vm.post.author.id})">{{vm.post.author.name}}</a></strong> &nbsp;<i class="icon-clock"></i> <small>{{vm.post.createdDate|timeago}}</small>
+    </div>
+    <div>
+        <span class="label label-primary"><i class="fa fa-wechat"></i>&nbsp;Bình luận&nbsp;{{vm.post.comments.length}}</span>
+        <span class="label label-info"><i class="icon-eye"></i>&nbsp;Xem&nbsp;{{vm.post.view}}</span>
+        <button class="pull-right btn btn-warning" ui-sref="post-edit({id: vm.post.id})" ng-if="vm.post.roleOwner"><i class="icon-pencil"></i>&nbsp;Chỉnh sửa</button>
+        <div class="pull-right dropdown" uib-dropdown style="margin-right: 10px">
+            <button class="btn btn-success dropdown-toggle" uib-dropdown-toggle type="button" data-toggle="dropdown" ng-if="vm.post.status == 'APPROVED'"><i class="fa fa-check"></i> Đã phê duyệt <span class="caret"></span></button>
+            <button class="btn btn-info dropdown-toggle" uib-dropdown-toggle type="button" data-toggle="dropdown" ng-if="vm.post.status == 'PENDING'"><i class="fa fa-ellipsis-h"></i> Đang chờ phê duyệt <span class="caret"></span></button>
+            <button class="btn btn-danger dropdown-toggle" uib-dropdown-toggle type="button" data-toggle="dropdown" ng-if="vm.post.status == 'NO_APPROVE'"><i class="glyphicon glyphicon-remove"></i> Không phê duyệt <span class="caret"></span></button>
+            <ul class="dropdown-menu" uib-dropdown-menu has-authority="ROLE_ADMIN">
+                <li ng-show="vm.post.status == 'PENDING' || vm.post.status == 'NO_APPROVE'"><a href="" ng-click="vm.approve()">Phê duyệt</a></li>
+                <li ng-show="vm.post.status == 'PENDING'" ng-click="vm.noApprove()"><a href="">Không phê duyệt</a></li>
+                <li ng-show="vm.post.status == 'APPROVED'"><a href="" ng-click="vm.noApprove()">Bỏ phê duyệt</a></li>
+            </ul>
+        </div>
+    </div>
+    <hr/>
+    <b>{{vm.post.decription}}</b>
+    <div ng-bind-html="vm.post.content"></div>
+    <hr/>
+    <div class="media" has-authority="ROLE_USER">
+        <div class="media-left media-top">
+            <img alt="..." src="content/images/author/avatar/sm.png" class="media-object" style="width:40px; height: 40px">
+        </div>
+        <div class="media-body">
+            <form ng-submit="vm.comment(commentContent)">
+                <input type="text" class="form-control" name="content" id="field_content" ng-model="commentContent" />
+            </form>
+        </div>
+    </div>
+    <div ng-repeat="comment in vm.post.comments" class="media">
+        <div class="media-left media-top">
+            <img alt="..." src="content/images/author/avatar/sm.png" class="media-object" style="width:40px; height: 40px">
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading"><small><b>{{comment.userLogin}}</b></small></h4>
+            <p>{{comment.content}}</p>
+        </div>
+    </div>
 </div>

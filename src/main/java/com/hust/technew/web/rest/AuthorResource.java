@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -30,7 +31,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.codahale.metrics.annotation.Timed;
 import com.hust.technew.domain.Author;
+import com.hust.technew.domain.Authority;
+import com.hust.technew.domain.User;
 import com.hust.technew.repository.AuthorRepository;
+import com.hust.technew.repository.AuthorityRepository;
+import com.hust.technew.repository.UserRepository;
 import com.hust.technew.security.AuthoritiesConstants;
 import com.hust.technew.service.AuthorService;
 import com.hust.technew.service.StorageService;
@@ -64,6 +69,12 @@ public class AuthorResource {
 	
 	@Inject
 	private UserService userService;
+	
+	@Inject
+	private AuthorityRepository authorityRepository;
+	
+	@Inject
+	private UserRepository userRepository;
 
 	/**
 	 * POST /authors : Create a new author.
@@ -88,6 +99,11 @@ public class AuthorResource {
 		}
 		Author author = authorMapper.authorDTOToAuthor(authorDTO);
 		author = authorRepository.save(author);
+		User user = userService.getUserWithAuthorities(authorDTO.getUserId());
+		Set<Authority> authorities = user.getAuthorities();
+		authorities.add(authorityRepository.findOne(AuthoritiesConstants.AUTHOR));
+		user.setAuthorities(authorities);
+		userRepository.save(user);
 		AuthorDTO result = authorMapper.authorToAuthorDTO(author);
 		return ResponseEntity.created(new URI("/api/authors/" + result.getId()))
 				.headers(HeaderUtil.createEntityCreationAlert("author", result.getId().toString())).body(result);

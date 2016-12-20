@@ -4,6 +4,7 @@
             "home": {
                 "title": "Authors",
                 "createLabel": "Create a new Author",
+                "createPost": "Create a new Post",
                 "createOrEditLabel": "Create or edit a Author",
                 "search": "Search for Author"
             },
@@ -28,6 +29,8 @@
             "status": "Status",
             "aboutMe": "About me<span class=\"h5\"> (click to edit)</span>",
             "edit_aboutMe": "Edit about me<span class=\"h5\"> (click to save)</span>",
+            "aboutMe_mini": "About me<span class=\"h5\"> (click to view full)</span>",
+            "aboutMe_full": "About me<span class=\"h5\"> (click to collapse)</span>",
             "user": "User",
             "post": "Post"
         }

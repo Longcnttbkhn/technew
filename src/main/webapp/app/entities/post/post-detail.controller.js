@@ -5,17 +5,42 @@
         .module('technewApp')
         .controller('PostDetailController', PostDetailController);
 
-    PostDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Post', 'Comment', 'Author', 'Category'];
+    PostDetailController.$inject = ['$scope', 'entity', 'Comment', 'Post'];
 
-    function PostDetailController($scope, $rootScope, $stateParams, previousState, entity, Post, Comment, Author, Category) {
+    function PostDetailController($scope, entity, Comment, Post) {
         var vm = this;
-
         vm.post = entity;
-        vm.previousState = previousState.name;
 
-        var unsubscribe = $rootScope.$on('technewApp:postUpdate', function(event, result) {
-            vm.post = result;
-        });
-        $scope.$on('$destroy', unsubscribe);
+        vm.comment = function(content) {
+            Comment.save({
+                content: content,
+                postId: vm.post.id
+            }, function(data) {
+                vm.post.comments.push(data);
+            }, function (error) {
+
+            })
+        }
+
+        vm.approve = function() {
+            var status = vm.post.status;
+            vm.post.status = 'APPROVED';
+            Post.update(vm.post, function(data) {
+
+            }, function(error) {
+                vm.post.status = status;
+            })
+        }
+
+        vm.noApprove = function() {
+            var status = vm.post.status;
+            vm.post.status = 'NO_APPROVE';
+            Post.update(vm.post, function(data) {
+
+            }, function(error) {
+                vm.post.status = status;
+            })
+        }
+
     }
 })();

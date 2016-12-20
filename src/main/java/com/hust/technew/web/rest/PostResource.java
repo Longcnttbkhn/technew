@@ -5,8 +5,10 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -33,6 +35,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.hust.technew.domain.Author;
 import com.hust.technew.domain.Post;
 import com.hust.technew.domain.enumeration.Status;
+import com.hust.technew.repository.CommentRepository;
 import com.hust.technew.repository.PostRepository;
 import com.hust.technew.security.AuthoritiesConstants;
 import com.hust.technew.service.AuthorService;
@@ -40,8 +43,10 @@ import com.hust.technew.service.PostService;
 import com.hust.technew.service.StorageService;
 import com.hust.technew.service.UserService;
 import com.hust.technew.service.dto.AvatarDTO;
+import com.hust.technew.service.dto.CommentDTO;
 import com.hust.technew.service.dto.PostDTO;
 import com.hust.technew.service.dto.PostLessDTO;
+import com.hust.technew.service.mapper.CommentMapper;
 import com.hust.technew.service.mapper.PostMapper;
 import com.hust.technew.web.rest.util.HeaderUtil;
 import com.hust.technew.web.rest.util.PaginationUtil;
@@ -72,6 +77,12 @@ public class PostResource {
 
 	@Inject
 	private StorageService storageService;
+	
+	@Inject
+	private CommentMapper commentMapper;
+	
+	@Inject
+	private CommentRepository commentRepository;
 
 	/**
 	 * POST /posts : Create a new post.
@@ -296,6 +307,9 @@ public class PostResource {
 		post.view();
 		post = postRepository.save(post);
 		PostDTO postDTO = postMapper.postToPostDTO(post);
+		Set<CommentDTO> comments = new HashSet<>();
+		comments.addAll(commentMapper.commentsToCommentDTOs(commentRepository.findAllByPost(post)));
+		postDTO.setComments(comments);
 		if (userService.hasAuthority(AuthoritiesConstants.ADMIN))
 			postDTO.setRoleAdmin(true);
 		else

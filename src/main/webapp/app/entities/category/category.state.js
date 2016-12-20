@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/category',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN'],
                 pageTitle: 'technewApp.category.home.title'
             },
             views: {
@@ -32,14 +32,14 @@
             }
         })
         .state('category-detail', {
-            parent: 'entity',
+            parent: 'public',
             url: '/category/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: [],
                 pageTitle: 'technewApp.category.detail.title'
             },
             views: {
-                'content@': {
+                'public-content': {
                     templateUrl: 'app/entities/category/category-detail.html',
                     controller: 'CategoryDetailController',
                     controllerAs: 'vm'
@@ -50,24 +50,16 @@
                     $translatePartialLoader.addPart('category');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Category', function($stateParams, Category) {
+                category: ['$stateParams', 'Category', function($stateParams, Category) {
                     return Category.get({id : $stateParams.id}).$promise;
-                }],
-                previousState: ["$state", function ($state) {
-                    var currentStateData = {
-                        name: $state.current.name || 'category',
-                        params: $state.params,
-                        url: $state.href($state.current.name, $state.params)
-                    };
-                    return currentStateData;
                 }]
             }
         })
-        .state('category-detail.edit', {
-            parent: 'category-detail',
-            url: '/detail/edit',
+        .state('category.new', {
+            parent: 'category',
+            url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -76,31 +68,6 @@
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'sm',
-                    resolve: {
-                        entity: ['Category', function(Category) {
-                            return Category.get({id : $stateParams.id}).$promise;
-                        }]
-                    }
-                }).result.then(function() {
-                    $state.go('^', {}, { reload: false });
-                }, function() {
-                    $state.go('^');
-                });
-            }]
-        })
-        .state('category.new', {
-            parent: 'category',
-            url: '/new',
-            data: {
-                authorities: ['ROLE_USER']
-            },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
-                    templateUrl: 'app/entities/category/category-dialog.html',
-                    controller: 'CategoryDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'md',
                     resolve: {
                         entity: function () {
                             return {
@@ -120,7 +87,7 @@
             parent: 'category',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -128,7 +95,7 @@
                     controller: 'CategoryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
-                    size: 'md',
+                    size: 'sm',
                     resolve: {
                         entity: ['Category', function(Category) {
                             return Category.get({id : $stateParams.id}).$promise;
@@ -145,7 +112,7 @@
             parent: 'category',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

@@ -4,6 +4,7 @@
             "home": {
                 "title": "Tác giả",
                 "createLabel": "Tạo tác giả mới",
+                "createPost": "Tạo bài viết mới",
                 "createOrEditLabel": "Tạo hoặc chỉnh sửa tác giả",
                 "search": "Tìm kiếm tác giả"
             },
@@ -28,6 +29,8 @@
             "status": "Trạng thái",
             "aboutMe": "Giới thiệu bản thân<span class=\"h5\"> (click để chỉnh sửa)</span>",
             "edit_aboutMe": "Chỉnh sửa giới thiệu bản thân <span class=\"h5\"> (click để lưu)</span>",
+            "aboutMe_mini": "Giới thiệu bản thân<span class=\"h5\"> (click để xem đầy đủ)</span>",
+            "aboutMe_full": "Giới thiệu bản thân <span class=\"h5\"> (click để thu gọn)</span>",
             "user": "Người dùng",
             "post": "Bài đăng"
         }

@@ -1,0 +1,57 @@
+<form name="editForm" class="form-validation" ng-submit="vm.save()">
+    <h4 class="modal-title" id="myPostLabel" data-translate="technewApp.post.home.createOrEditLabel">Create or edit a Post</h4>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label data-translate="technewApp.post.category" for="field_category">Category</label>
+                <select class="form-control" id="field_category" name="category" ng-model="vm.post.category.id" ng-options="category.id as category.name for category in vm.categories">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label" data-translate="technewApp.post.title" for="field_title">Title</label>
+                <input type="text" class="form-control" name="title" id="field_title" ng-model="vm.post.title" required />
+                <div ng-show="editForm.title.$invalid">
+                    <p class="help-block" ng-show="editForm.title.$error.required" data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div>
+                <label class="control-label" data-translate="technewApp.post.avatar" for="field_avatar">Avatar</label>
+            </div>
+            <div class="gs-avatar">
+                <img src="content/images/post/avatar/md.png" ng-src="{{vm.avatar}}" class="media-object">
+                <crop-image croped-image="vm.avatar" is-croped="vm.isChangeAvatar" class="labelInput" width="200" height="150"></crop-image>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label" data-translate="technewApp.post.decription" for="field_decription">Decription</label>
+        <input type="text" class="form-control" name="decription" id="field_decription" ng-model="vm.post.decription" required />
+        <div ng-show="editForm.decription.$invalid">
+            <p class="help-block" ng-show="editForm.decription.$error.required" data-translate="entity.validation.required">
+                This field is required.
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label" data-translate="technewApp.post.content" for="field_content">Content</label>
+        <div text-angular ng-model="vm.post.content"></div>
+    </div>
+    <!-- <div class="form-group">
+                <label class="control-label" data-translate="technewApp.post.status" for="field_status">Status</label>
+                <select class="form-control" name="status" ng-model="vm.post.status" id="field_status">
+                    <option value="PENDING" data-translate="technewApp.Status.PENDING">PENDING</option>
+                    <option value="APPROVED" data-translate="technewApp.Status.APPROVED">APPROVED</option>
+                    <option value="NO_APPROVE" data-translate="technewApp.Status.NO_APPROVE">NO_APPROVE</option>
+                    <option value="LOCKED" data-translate="technewApp.Status.LOCKED">LOCKED</option>
+                </select>
+            </div> -->
+    <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+        <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+    </button>
+</form>

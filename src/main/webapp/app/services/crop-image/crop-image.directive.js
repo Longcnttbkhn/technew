@@ -13,7 +13,9 @@
             scope: {
                 cropedImage: '=',
                 class: '@',
-                isCroped: '='
+                isCroped: '=',
+                width: '=',
+                height: '='
             },
             templateUrl: 'app/services/crop-image/crop-image.html',
             controller: ['$scope', '$uibModal', function cropImageController($scope, $uibModal) {
@@ -31,7 +33,11 @@
                             controller: 'CropImageModalController1',
                             controllerAs: 'vm',
                             resolve: {
-                                file: file
+                                image: {
+                                    file: file,
+                                    width: $scope.width,
+                                    height: $scope.height
+                                }
                             }
                         }).result.then(function(file) {
                             $scope.cropedImage = file;

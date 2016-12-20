@@ -48,7 +48,7 @@
             },
             'new': {
                 method: 'GET',
-                url: 'api/posts/new/:id',
+                url: 'api/posts/new',
                 isArray: true,
                 transformResponse: function (data) {
                     if (data) {

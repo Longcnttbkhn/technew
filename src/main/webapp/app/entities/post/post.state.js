@@ -10,55 +10,20 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('post', {
-            parent: 'entity',
+            parent: 'public',
             url: '/post',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN'],
                 pageTitle: 'technewApp.post.home.title'
             },
             views: {
-                'content@': {
+                'public-content': {
                     templateUrl: 'app/entities/post/posts.html',
                     controller: 'PostController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
-                method: [function() {
-                    return 'query';
-                }],
-                query: [function() {
-                    return {};
-                }],
-                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('post');
-                    $translatePartialLoader.addPart('status');
-                    $translatePartialLoader.addPart('global');
-                    return $translate.refresh();
-                }]
-            }
-        })
-        .state('my-post', {
-            parent: 'entity',
-            url: '/my-post',
-            data: {
-                authorities: ['ROLE_USER'],
-                pageTitle: 'technewApp.post.home.title'
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/entities/post/posts.html',
-                    controller: 'PostController',
-                    controllerAs: 'vm'
-                }
-            },
-            resolve: {
-                method: [function() {
-                    return 'author';
-                }],
-                query: ['Author', function(Author) {
-                    return Author.current().$promise;
-                }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('post');
                     $translatePartialLoader.addPart('status');
@@ -68,14 +33,14 @@
             }
         })
         .state('post-detail', {
-            parent: 'entity',
+            parent: 'public',
             url: '/post/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: [],
                 pageTitle: 'technewApp.post.detail.title'
             },
             views: {
-                'content@': {
+                'public-content': {
                     templateUrl: 'app/entities/post/post-detail.html',
                     controller: 'PostDetailController',
                     controllerAs: 'vm'
@@ -100,89 +65,55 @@
                 }]
             }
         })
-        .state('post-detail.edit', {
-            parent: 'post-detail',
-            url: '/detail/edit',
+        .state('post-edit', {
+            parent: 'public',
+            url: '/post/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: []
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
-                    templateUrl: 'app/entities/post/post-dialog.html',
-                    controller: 'PostDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: ['Post', function(Post) {
-                            return Post.get({id : $stateParams.id}).$promise;
-                        }]
-                    }
-                }).result.then(function() {
-                    $state.go('^', {}, { reload: false });
-                }, function() {
-                    $state.go('^');
-                });
-            }]
+            views: {
+                'public-content': {
+                    templateUrl: 'app/entities/post/post-form.html',
+                    controller: 'PostFormController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('post');
+                    $translatePartialLoader.addPart('status');
+                    return $translate.refresh();
+                }],
+                entity: ['$stateParams', 'Post', function($stateParams, Post) {
+                    return Post.get({id : $stateParams.id}).$promise;
+                }]
+            }
         })
-        .state('post.new', {
-            parent: 'post',
-            url: '/new',
+        .state('post-create', {
+            parent: 'entity',
+            url: '/post-create',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: []
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
-                    templateUrl: 'app/entities/post/post-dialog.html',
-                    controller: 'PostDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: function () {
-                            return {
-                                title: null,
-                                content: null,
-                                decription: null,
-                                avatar: null,
-                                status: null,
-                                createdDate: null,
-                                view: null,
-                                id: null
-                            };
-                        }
-                    }
-                }).result.then(function() {
-                    $state.go('post', null, { reload: 'post' });
-                }, function() {
-                    $state.go('post');
-                });
-            }]
-        })
-        .state('post.edit', {
-            parent: 'post',
-            url: '/{id}/edit',
-            data: {
-                authorities: ['ROLE_USER']
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/post/post-form.html',
+                    controller: 'PostFormController',
+                    controllerAs: 'vm'
+                }
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
-                    templateUrl: 'app/entities/post/post-dialog.html',
-                    controller: 'PostDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: ['Post', function(Post) {
-                            return Post.get({id : $stateParams.id}).$promise;
-                        }]
-                    }
-                }).result.then(function() {
-                    $state.go('post', null, { reload: 'post' });
-                }, function() {
-                    $state.go('^');
-                });
-            }]
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('post');
+                    $translatePartialLoader.addPart('status');
+                    return $translate.refresh();
+                }],
+                entity: function() {
+                    return {
+                        id: null
+                    };
+                }
+            }
         })
         .state('post.delete', {
             parent: 'post',

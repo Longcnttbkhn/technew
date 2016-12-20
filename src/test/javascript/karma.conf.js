@@ -52,11 +52,12 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/ng-file-upload/ng-file-upload.js',
             'src/main/webapp/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
             'src/main/webapp/bower_components/angular-xeditable/dist/js/xeditable.js',
-            'src/main/webapp/bower_components/ng-img-crop/compile/minified/ng-img-crop.js',
             'src/main/webapp/bower_components/angular-animate/angular-animate.js',
             'src/main/webapp/bower_components/textAngular/dist/textAngular.js',
             'src/main/webapp/bower_components/textAngular/dist/textAngular-sanitize.js',
             'src/main/webapp/bower_components/textAngular/dist/textAngularSetup.js',
+            'src/main/webapp/bower_components/angular-img-cropper/dist/angular-img-cropper.min.js',
+            'src/main/webapp/bower_components/ng-timeago/ngtimeago.js',
             'src/main/webapp/bower_components/angular-mocks/angular-mocks.js',
             'src/main/webapp/bower_components/AngularJS-Toaster/toaster.js',
             // endbower
