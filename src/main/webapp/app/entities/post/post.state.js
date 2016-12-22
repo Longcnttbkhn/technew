@@ -90,13 +90,13 @@
             }
         })
         .state('post-create', {
-            parent: 'entity',
+            parent: 'public',
             url: '/post-create',
             data: {
                 authorities: []
             },
             views: {
-                'content@': {
+                'public-content': {
                     templateUrl: 'app/entities/post/post-form.html',
                     controller: 'PostFormController',
                     controllerAs: 'vm'

@@ -56,9 +56,7 @@
         <div class="form-group">
             <label class="control-label" data-translate="technewApp.author.status" for="field_status">Status</label>
             <select class="form-control" name="status" ng-model="vm.author.status" id="field_status" required>
-                <option value="PENDING" data-translate="technewApp.Status.PENDING">PENDING</option>
                 <option value="APPROVED" data-translate="technewApp.Status.APPROVED">APPROVED</option>
-                <option value="NO_APPROVE" data-translate="technewApp.Status.NO_APPROVE">NO_APPROVE</option>
                 <option value="LOCKED" data-translate="technewApp.Status.LOCKED">LOCKED</option>
             </select>
             <div ng-show="editForm.status.$invalid">

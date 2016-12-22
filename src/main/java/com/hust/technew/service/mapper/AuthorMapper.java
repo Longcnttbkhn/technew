@@ -15,6 +15,7 @@ import com.hust.technew.service.dto.AuthorDTO;
 @Mapper(componentModel = "spring", uses = {UserMapper.class, })
 public interface AuthorMapper {
 
+	@Mapping(source = "user.login", target = "userLogin")
     @Mapping(source = "user.id", target = "userId")
     AuthorDTO authorToAuthorDTO(Author author);
 

@@ -6,8 +6,8 @@
     <div>
         <span class="label label-primary"><i class="fa fa-wechat"></i>&nbsp;Bình luận&nbsp;{{vm.post.comments.length}}</span>
         <span class="label label-info"><i class="icon-eye"></i>&nbsp;Xem&nbsp;{{vm.post.view}}</span>
-        <button class="pull-right btn btn-warning" ui-sref="post-edit({id: vm.post.id})" ng-if="vm.post.roleOwner"><i class="icon-pencil"></i>&nbsp;Chỉnh sửa</button>
-        <div class="pull-right dropdown" uib-dropdown style="margin-right: 10px">
+        <button class="pull-right btn btn-warning" ui-sref="post-edit({id: vm.post.id})" ng-if="vm.post.roleOwner && vm.post.status != 'APPROVED'"><i class="icon-pencil"></i>&nbsp;Chỉnh sửa</button>
+        <div class="pull-right dropdown" uib-dropdown style="margin-right: 10px" ng-if="vm.post.roleAdmin || vm.post.roleOwner">
             <button class="btn btn-success dropdown-toggle" uib-dropdown-toggle type="button" data-toggle="dropdown" ng-if="vm.post.status == 'APPROVED'"><i class="fa fa-check"></i> Đã phê duyệt <span class="caret"></span></button>
             <button class="btn btn-info dropdown-toggle" uib-dropdown-toggle type="button" data-toggle="dropdown" ng-if="vm.post.status == 'PENDING'"><i class="fa fa-ellipsis-h"></i> Đang chờ phê duyệt <span class="caret"></span></button>
             <button class="btn btn-danger dropdown-toggle" uib-dropdown-toggle type="button" data-toggle="dropdown" ng-if="vm.post.status == 'NO_APPROVE'"><i class="glyphicon glyphicon-remove"></i> Không phê duyệt <span class="caret"></span></button>

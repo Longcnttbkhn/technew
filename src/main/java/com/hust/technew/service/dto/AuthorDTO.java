@@ -1,11 +1,11 @@
 package com.hust.technew.service.dto;
 
-import java.time.LocalDate;
-import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
 import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.hust.technew.domain.enumeration.Status;
 
@@ -33,8 +33,9 @@ public class AuthorDTO implements Serializable {
     @Size(max = 10000)
     private String aboutMe;
 
-
     private Long userId;
+    
+    private String userLogin;
     
     public Long getId() {
         return id;
@@ -101,7 +102,15 @@ public class AuthorDTO implements Serializable {
         this.userId = userId;
     }
 
-    @Override
+	public String getUserLogin() {
+		return userLogin;
+	}
+
+	public void setUserLogin(String userLogin) {
+		this.userLogin = userLogin;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

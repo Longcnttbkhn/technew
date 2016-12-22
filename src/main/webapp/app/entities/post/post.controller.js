@@ -10,5 +10,6 @@
     function PostController($scope) {
         var vm = this;
         vm.query = {};
+        vm.showStatus = true;
     }
 })();

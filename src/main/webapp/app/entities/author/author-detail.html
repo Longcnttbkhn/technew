@@ -7,7 +7,7 @@
     }
     </style>
     <div class="col-lg-7 col-md-7 col-xs-12">
-        <div class="container-fluid" ng-if="vm.edit">
+        <div class="container-fluid" ng-if="vm.edit && currentAuthor.status == 'APPROVED'">
             <div class="row">
                 <div class="col-xs-4 no-padding-left">
                     <button class="btn btn-primary" ui-sref="post-create">
@@ -20,7 +20,7 @@
             </div>
         </div>
         <br/>
-        <post-list method="author" query="vm.author"></post-list>
+        <post-list method="author" query="vm.author" show-status="vm.showStatus"></post-list>
     </div>
     <div class="col-lg-5 col-md-5 hidden-xs">
         <div class="media">

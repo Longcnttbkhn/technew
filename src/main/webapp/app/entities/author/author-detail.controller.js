@@ -19,10 +19,14 @@
             $scope.opened[elementOpened] = !$scope.opened[elementOpened];
         };
 
+        vm.showStatus = false;
+
         vm.author = entity;
         if ($rootScope.currentAuthor && $rootScope.currentAuthor != null) {
-            if ($rootScope.currentAuthor.id == vm.author.id)
+            if ($rootScope.currentAuthor.id == vm.author.id) {
                 vm.edit = true;
+                vm.showStatus = true;
+            }
         }
         console.log(vm.edit);
         // Upload image 
@@ -34,6 +38,7 @@
             if ($scope.isCroped) {
                 UploadImage.upload('/api/authors/' + vm.author.id + '/avatar', 'PUT', vm.imgAvatar, function(response) {
                     vm.author.avatar = response.data.avatar;
+                    vm.imgAvatar = null;
                     vm.imgAvatar = response.data.avatar + 'md';
                 }, function() {
                     vm.imgAvatar = vm.author.avatar + 'md';

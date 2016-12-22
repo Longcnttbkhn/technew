@@ -10,5 +10,6 @@
     function HomeController ($scope) {
         var vm = this;
         vm.query = {};
+        vm.showStatus = false;
     }
 })();

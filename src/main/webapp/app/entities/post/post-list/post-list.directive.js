@@ -12,7 +12,8 @@
             restrict: 'EA',
             scope: {
                 method: '@',
-                query: '='
+                query: '=',
+                showStatus: '='
             },
             templateUrl: 'app/entities/post/post-list/post-list.html',
             controller: ['$scope', '$state', 'Post', 'ParseLinks', function postListController($scope, $state, Post, ParseLinks) {

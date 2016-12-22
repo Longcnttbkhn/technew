@@ -15,6 +15,9 @@
         vm.categories = Category.query();
         vm.isChangeAvatar = false;
 
+        if (vm.post.avatar)
+            vm.avatar = vm.post.avatar + 'md';
+
         function save () {
             vm.isSaving = true;
             if (vm.isChangeAvatar)

@@ -1,30 +1,35 @@
 package com.hust.technew.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.hust.technew.domain.Category;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import com.hust.technew.repository.CategoryRepository;
-import com.hust.technew.security.AuthoritiesConstants;
-import com.hust.technew.web.rest.util.HeaderUtil;
-import com.hust.technew.service.dto.CategoryDTO;
-import com.hust.technew.service.mapper.CategoryMapper;
+import javax.inject.Inject;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.AbstractJsonpResponseBodyAdvice;
 
-import javax.inject.Inject;
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.codahale.metrics.annotation.Timed;
+import com.hust.technew.domain.Category;
+import com.hust.technew.repository.CategoryRepository;
+import com.hust.technew.security.AuthoritiesConstants;
+import com.hust.technew.service.dto.CategoryDTO;
+import com.hust.technew.service.mapper.CategoryMapper;
+import com.hust.technew.web.rest.util.HeaderUtil;
 
 /**
  * REST controller for managing Category.
@@ -40,6 +45,13 @@ public class CategoryResource {
 
     @Inject
     private CategoryMapper categoryMapper;
+    
+    @ControllerAdvice
+    public static class JsonpAdvice extends AbstractJsonpResponseBodyAdvice {
+        public JsonpAdvice() {
+            super("callback");
+        }
+    }
 
     /**
      * POST  /categories : Create a new category.
@@ -103,6 +115,21 @@ public class CategoryResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<CategoryDTO> getAllCategories() {
+        log.debug("REST request to get all Categories");
+        List<Category> categories = categoryRepository.findAll();
+        return categoryMapper.categoriesToCategoryDTOs(categories);
+    }
+    
+    /**
+     * GET  /categories/json : get all the categories.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of categories in body
+     */
+    @RequestMapping(value = "/categories/json",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<CategoryDTO> getAllCategoriesJson(@RequestParam String callback) {
         log.debug("REST request to get all Categories");
         List<Category> categories = categoryRepository.findAll();
         return categoryMapper.categoriesToCategoryDTOs(categories);

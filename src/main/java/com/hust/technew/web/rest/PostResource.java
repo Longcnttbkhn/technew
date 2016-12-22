@@ -162,6 +162,7 @@ public class PostResource {
 						.body(null);
 			// update
 			postMapper.updateByAuthor(postDTO, post);
+			post.setStatus(Status.PENDING);
 		}
 		post = postRepository.save(post);
 		PostDTO result = postMapper.postToPostDTO(post);
